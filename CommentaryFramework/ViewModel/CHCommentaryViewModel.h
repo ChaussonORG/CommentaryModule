@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "CHCommentaryCellVM.h"
 @interface CHCommentaryViewModel : NSObject
 @property (nonatomic, copy)NSString *identifier;
-
+@property (nonatomic, strong)NSMutableArray <CHCommentaryCellVM *> *cellViewModel;
+- (void)requestData;
+- (void)requestFooterData;
 @end

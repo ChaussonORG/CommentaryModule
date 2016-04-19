@@ -9,15 +9,15 @@
 #import <Foundation/Foundation.h>
 
 @interface CHCommentaryCellVM : NSObject
-@property (copy, nonatomic, readonly)NSString *name;
+@property (copy, nonatomic)NSString *name;
 
-@property (copy, nonatomic, readonly)NSString *imageUrl;
+@property (copy, nonatomic)NSString *imageUrl;
 
-@property (copy ,nonatomic, readonly) NSString *time;
+@property (copy ,nonatomic) NSString *time;
 
-@property (copy, nonatomic, readonly)NSString *content;
+@property (copy, nonatomic)NSString *content;
 
-@property (assign, nonatomic, readonly)NSInteger praiseNum;
+@property (assign, nonatomic)NSInteger praiseNum;
 
-@property (assign, nonatomic, readonly)BOOL isVIP;
+@property (assign, nonatomic)BOOL isVIP;
 @end
