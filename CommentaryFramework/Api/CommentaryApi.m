@@ -18,16 +18,19 @@
     }
     return self;
 }
-- (NSString *)requestPathUrl{
-    return [NSString stringWithFormat:@"/app/comment/list/111"];
+-(NSString *)customUrl
+{
+    return @"http://p2pguide.sudaotech.com/platform/app/comment/list/28";
+
 }
+
 - (NSDictionary *)requestParameter{
     return @{@"offset":@(self.index)};
 }
 - (NSDictionary *)requestHeaderFieldValueDictionary
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString *token = [NSString stringWithFormat:@"_MCH_AT=%@", @""];
+    NSString *token = [NSString stringWithFormat:@"_MCH_AT=%@", @"8rc3%2BVwxuDpgiOEW%2Fe37%2FMAQjeHM6HFb6K3cNEpmVHQ1Gfvx8YI%2BpkAzov2ysr9ExKdh3MRoPFqlBoRqEqucSSDLPsTP%2FyAr1BHoRG%2BvDO5XBUtGzSvIGBjfEiim%2Fy97peUK8KsIYKi%2FJmNhAS4QtQ%3D%3D"];
     [dic setObject:token forKey:@"cookie"];
     return dic;
 }
@@ -39,7 +42,6 @@
     if (_model.code == 200) {
         return  _model.data.items?_model.data.items:nil;
     }else{
-        NSLog(@" %s%@",__PRETTY_FUNCTION__,_model.message);
         return nil;
     }
 }

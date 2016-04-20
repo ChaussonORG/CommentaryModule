@@ -8,18 +8,39 @@
 
 #import "CHCommentaryController.h"
 #import "CHCommentaryTableView.h"
+#import <ReactiveCocoa.h>
+#import <MJRefresh/MJRefresh.h>
 
 @implementation CHCommentaryController
 
 - (void)viewDidLoad
 {
+    self.viewModel = [[CHCommentaryViewModel alloc] init];
+    [self.viewModel requestData];
     self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStyleGrouped)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    
-    
-   
+    @weakify(self);
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self.viewModel requestData];
+        
+    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        [self.viewModel requestFooterData];
+    }];    [self binding];
+}
+- (void)binding
+{
+    @weakify(self)
+    [RACObserve(self.viewModel, cellViewModel) subscribeNext:^(id x) {
+        @strongify(self)
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -29,6 +50,8 @@
     if (cell == nil) {
         cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellStr];
     }
+    CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
+    [cell setCellWithModel:cellVM];
     return cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -37,6 +60,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
+   CGSize size = [CHCommentaryCell calculateStringLength:cellVM.content];
+    return size.height;
 }
 @end

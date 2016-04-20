@@ -24,4 +24,5 @@
 
 + (CGSize)calculateStringLength:(NSString *)str;
 
+- (void)setCellWithModel:(CHCommentaryCellVM*)model;
 @end
