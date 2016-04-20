@@ -11,6 +11,10 @@
 #import <CHNetworking.h>
 #import <ReactiveCocoa.h>
 #import "CHSendCommentApi.h"
+@interface CHCommentaryViewModel()
+@property (nonatomic, strong) NSMutableArray <CHCommentaryCellVM *> *cellViewModel;
+@property (nonatomic, assign) BOOL isFinish;
+@end
 @implementation CHCommentaryViewModel{
     CHCommentaryApi *_api;
     CHSendCommentApi *_sendApi;
@@ -58,18 +62,23 @@
         
     }];
 }
-- (void)sendText:(NSString *)text
+- (void)sendWithMessage:(NSString *)message andCompletion:(void(^)())completion
 {
    // self.isFinish = @"0";
-    _sendApi.content = text;
+    _sendApi.content = message;
     [_sendApi startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
-        if ([[request.response.responseJSONObject objectForKey:@"code"] isEqualToString:@"1999"]) {
-            self.isFinish = [request.response.responseJSONObject objectForKey:@"message"];
-        }else{
-            self.isFinish = @"1";
+        NSString *message = [request.response.responseJSONObject objectForKey:@"message"];
+        if (message.length > 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+            [alert show];
+        }
+        if (completion) {
+            completion();
         }
     } failureBlock:^(__kindof CHBaseRequest *request) {
-        self.isFinish = @"2";
+        if (completion) {
+            completion();
+        }
     }];
 }
 - (CHCommentaryCellVM *)assemblyViewModelWithItem:(CHCommentaryModelItems *)items

@@ -27,10 +27,10 @@
     NSAssert(self.viewModel != nil, @"%@ VM is nil ",[self class]);
     [self.viewModel requestData];
     [self setupTableView];
-
-    [self.view addSubview:self.tableView];
+    [self creatSendView];
+    [self addSubview];
     [self blindViewModel];
-    
+
 }
 #pragma mark Blind
 - (void)blindViewModel
@@ -44,6 +44,10 @@
     }];
 }
 #pragma mark Private
+- (void)addSubview{
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.keyBofardView];
+}
 - (void)setupTableView{
     //self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStylePlain)];
     self.tableView = [[CHCommentaryTableView alloc] initWithOwner:self];
@@ -84,11 +88,13 @@
 - (void)creatSendView
 {
     self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
-    [self.view addSubview:self.keyBofardView];
+
 
 }
 - (void)pressSendBtn:(NSString *)text
 {
-    
+    [self.viewModel sendWithMessage:text andCompletion:^{
+        //
+    }];
 }
 @end
