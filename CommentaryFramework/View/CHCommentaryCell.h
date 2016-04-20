@@ -23,6 +23,11 @@
 @property(nonatomic,strong)UIButton *vipSymbolBtn;
 
 - (void )loadDataWithVM:(CHCommentaryCellVM *)model;
+/**
+ *  @brief 计算cell高度
+ *  @param  cellViewModel
+ *  @return 返回cell高度
+ */
 + (CGFloat )calculateHengthViewModel:(CHCommentaryCellVM *)viewModel;
 + (NSString *)commentaryIdentifier;
 

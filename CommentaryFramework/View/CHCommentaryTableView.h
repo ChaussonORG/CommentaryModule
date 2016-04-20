@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface CHCommentaryTableView : UITableView
+/**
+ *  @brief  初始化表格API
+ *  @param  预导入视图控制器
+ *  @return 返回实例对象
+ */
 - (instancetype)initWithOwner:(UIViewController <UITableViewDelegate,UITableViewDataSource>*)controller;
 @end

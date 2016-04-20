@@ -13,7 +13,7 @@
 
 @end
 
-@interface CHInputkeyboard : UIView
+@interface CHInputkeyboard : UIView<UITextViewDelegate>
 {
     id<CHCommentarySendDelegate>obj;
 }
@@ -21,7 +21,11 @@
 @property(nonatomic,strong)UITextView *textView;
 
 @property(nonatomic,strong)UIButton *sendBtn;
-
-- (instancetype)initWithObj:(id<CHCommentarySendDelegate>)o;
+/**
+ *  @brief  初始化输入框API
+ *  @param  预导入视图控制器 CHCommentarySendDelegate协议代理对象
+ *  @return 返回实例对象
+ */
+- (instancetype)initWithOwner:(UIViewController <UITextViewDelegate>*)controller Obj:(id<CHCommentarySendDelegate>)o ;
 
 @end

@@ -13,12 +13,50 @@
 #define kWidthFactor ([UIScreen mainScreen].bounds.size.width/375)
 #define kHeightFactor ([UIScreen mainScreen].bounds.size.height/667)
 @implementation CHInputkeyboard
-- (instancetype)initWithObj:(id<CHCommentarySendDelegate>)o{
-    self = [super init];
+- (void)handleKeyboardShow:(NSNotification *) note{
+    NSDictionary *userInfo = note.userInfo;
+    
+    // 键盘的frame
+    CGRect keyboardF = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    // 执行动画
+    [UIView animateWithDuration:.5 animations:^{
+        CGRect rect = self.frame;
+        rect.origin.y = rect.origin.y - keyboardF.size.height;
+        self.frame = rect;
+    } completion:^(BOOL finished) {
+    }];
+}
+
+- (void)handleKeyboardHide:(NSNotification *) note{
+    [UIView animateWithDuration:.5 animations:^{
+        CGRect rect = self.frame;
+        rect.origin.y = SCREENHEIGHT - 50*kHeightFactor;
+        self.frame = rect;
+
+    } completion:^(BOOL finished) {
+        self.textView.text = @"";
+    }];
+}
+- (instancetype)initWithOwner:(UIViewController <UITextViewDelegate>*)controller Obj:(id<CHCommentarySendDelegate>)o {
+    
+    CGSize size = controller.view.frame.size;
+    _textView.delegate = controller;
+   
+    self = [super initWithFrame:CGRectMake(0, SCREENHEIGHT - 50*kHeightFactor, size.width, 50)];
     if (self) {
         
         [self prepareForLayout];
         obj = o;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:controller
+                                                 selector:@selector(handleKeyboardShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:controller
+                                                 selector:@selector(handleKeyboardHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
         
     }
     return self;

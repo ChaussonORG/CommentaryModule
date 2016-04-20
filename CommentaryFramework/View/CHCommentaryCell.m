@@ -96,15 +96,9 @@ CGFloat labelHeight;
     _contentLabel.text = model.content;
     _contentLabel.numberOfLines = 0;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
-    NSAttributedString* atrString = [[NSAttributedString alloc] initWithString:model.content];
-    NSRange range = NSMakeRange(0, atrString.length);
-    NSDictionary* dic = [atrString attributesAtIndex:0 effectiveRange:&range];
-    CGSize size = [model.content boundingRectWithSize:CGSizeMake(SCREENWITH - 80*kWidthFactor, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
-    _contentLabel.frame = CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, size.height);
+    _contentLabel.frame = CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, labelHeight);
    [_contentLabel sizeToFit];
-    
-    labelHeight = _contentLabel.frame.size.height;
-    
+
     
     model.praiseNum =100;
     NSString *praiseString = [NSString stringWithFormat:@"%ld",model.praiseNum];
@@ -128,7 +122,20 @@ CGFloat labelHeight;
 
 + (CGFloat )calculateHengthViewModel:(CHCommentaryCellVM *)viewModel{
     
-    CGSize size = CGSizeMake(SCREENWITH, labelHeight + 60*kHeightFactor);
+    
+    NSAttributedString* atrString = [[NSAttributedString alloc] initWithString:viewModel.content];
+    NSRange range = NSMakeRange(0, atrString.length);
+    NSDictionary* dic = [atrString attributesAtIndex:0 effectiveRange:&range];
+    CGSize size = [viewModel.content boundingRectWithSize:CGSizeMake(SCREENWITH - 80*kWidthFactor, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
+    UILabel *label = [[UILabel alloc]initWithFrame: CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, size.height)];
+    label.text = viewModel.content;
+    label.numberOfLines = 0;
+    label.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
+    [label sizeToFit];
+    
+    labelHeight = label.frame.size.height;
+    
+    size = CGSizeMake(SCREENWITH, labelHeight + 60 *kHeightFactor);
 
     return  size.height;
 }
