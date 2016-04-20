@@ -12,7 +12,7 @@
 
 @property(nonatomic,strong)UIButton *nameBtn;
 
-@property(nonatomic,strong)UIButton *imageBtn;
+@property(nonatomic,strong)UIImageView *headImage;
 
 @property(nonatomic,strong)UILabel *timeLabel;
 
@@ -28,4 +28,5 @@
 
 + (CGSize)calculateStringLength:(NSString *)str;
 
+- (void)setCellWithModel:(CHCommentaryCellVM*)model;
 @end

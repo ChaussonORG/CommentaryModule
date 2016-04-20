@@ -7,6 +7,7 @@
 //
 
 #import "CHCommentaryCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #define SCREENWITH   [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -17,6 +18,8 @@
 #define COMMENTARYTIMEFONTSIZE 10
 #define COMMENTARYCONTENTFONTSIZE 16
 #define COMMENTARYPRAISENUMFONTSIZE 15
+
+CGFloat labelHeight;
 @implementation CHCommentaryCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -36,12 +39,9 @@
     
     
     _nameBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    _nameBtn.titleLabel.font = [UIFont systemFontOfSize:COMMENTARYNAMEFONTSIZE*kWidthFactor];
-    _nameBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     
     
-    _imageBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    _imageBtn.layer.cornerRadius = 200*kHeightFactor/2;
+    _headImage  = [[UIImageView alloc]init];
     
     
     _timeLabel = [[UILabel alloc]init];
@@ -51,22 +51,17 @@
     
     
     _contentLabel = [[UILabel alloc]init];
-    NSLog(@"******%f %f",_contentLabel.frame.size.height,_contentLabel.frame.size.width);
     _contentLabel.font = [UIFont systemFontOfSize:COMMENTARYCONTENTFONTSIZE*kWidthFactor];
-
     
     
     _praiseBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_praiseBtn setImage:[UIImage imageNamed:@"Normal"] forState:UIControlStateNormal];
-    [_praiseBtn setImage:[UIImage imageNamed:@"selected"] forState:UIControlStateSelected];
-    
+ 
     
     _vipSymbolBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [_vipSymbolBtn setImage:[UIImage imageNamed:@"crown"] forState:UIControlStateNormal];
-   
+
 
     [self.contentView addSubview:self.nameBtn];
-    [self.contentView addSubview:self.imageBtn];
+    [self.contentView addSubview:self.headImage];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.contentLabel];
     [self.contentView addSubview:self.praiseBtn];
@@ -75,20 +70,28 @@
 
 - (void)setCellWithModel:(CHCommentaryCellVM*)model{
     
-    _nameBtn.titleLabel.numberOfLines = 0;
-    _nameBtn.titleLabel.text = model.name;
-    _nameBtn.frame = CGRectMake(215*kWidthFactor, 10*kHeightFactor, 100, 18*kHeightFactor);
-    CGFloat vipSymbolY = _nameBtn.frame.size.width + 215*kWidthFactor;
-    NSLog(@"*******%f",_nameBtn.frame.size.width);
+    _nameBtn.titleLabel.numberOfLines = 1;
+    _nameBtn.titleLabel.font = [UIFont systemFontOfSize:COMMENTARYNAMEFONTSIZE*kWidthFactor];
+    NSAttributedString* atrName = [[NSAttributedString alloc] initWithString:model.name];
+    NSRange nameRange = NSMakeRange(0, atrName.length);
+    NSDictionary* dicName = [atrName attributesAtIndex:0 effectiveRange:&nameRange];
+    CGSize nameSize = [model.name boundingRectWithSize:CGSizeMake(200, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:dicName context:nil].size;
+    _nameBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [_nameBtn setTitle:model.name forState:UIControlStateNormal];
+    _nameBtn.frame = CGRectMake(55*kWidthFactor, 5*kHeightFactor, nameSize.width, 5*kHeightFactor);
+    CGFloat vipSymbolY = _nameBtn.frame.size.width + 55*kWidthFactor;
+    [_nameBtn sizeToFit];
     
-    _imageBtn.frame = CGRectMake(10*kWidthFactor, 10*kHeightFactor, 200*kWidthFactor, 200*kHeightFactor);
+    _headImage.frame = CGRectMake(10*kWidthFactor, 10*kHeightFactor, 40*kWidthFactor, 40*kHeightFactor);
     NSURL *url  =[NSURL URLWithString:model.imageUrl];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *headerImage = [UIImage imageWithData:data];
-    [_imageBtn setImage:headerImage forState:UIControlStateNormal];
+    [_headImage  sd_setImageWithURL:url];
+    [_headImage.layer setCornerRadius:20*kWidthFactor];
+    [_headImage.layer setMasksToBounds:YES];
     
-    _timeLabel.frame = CGRectMake(215*kWidthFactor, 30*kHeightFactor, 150*kWidthFactor, 12*kHeightFactor);
+    
+    _timeLabel.frame = CGRectMake(55*kWidthFactor, 35*kHeightFactor, 150*kWidthFactor, 15*kHeightFactor);
     _timeLabel.text = model.time;
+    
     
     _contentLabel.text = model.content;
     _contentLabel.numberOfLines = 0;
@@ -96,14 +99,25 @@
     NSAttributedString* atrString = [[NSAttributedString alloc] initWithString:model.content];
     NSRange range = NSMakeRange(0, atrString.length);
     NSDictionary* dic = [atrString attributesAtIndex:0 effectiveRange:&range];
-    CGSize size = [model.content boundingRectWithSize:CGSizeMake(SCREENWITH - 215*kWidthFactor, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
-    _contentLabel.frame = CGRectMake(215*kWidthFactor, 50*kHeightFactor, size.width, size.height);
-//   [_contentLabel sizeToFit];
+    CGSize size = [model.content boundingRectWithSize:CGSizeMake(SCREENWITH - 80*kWidthFactor, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
+    _contentLabel.frame = CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, size.height);
+   [_contentLabel sizeToFit];
     
-    _praiseBtn.frame = CGRectMake(0, 0, 0, 0);
-    _praiseBtn.titleLabel.text = [NSString stringWithFormat:@"%ld",model.praiseNum];
+    labelHeight = _contentLabel.frame.size.height;
+    
+    
+    model.praiseNum =100;
+    NSString *praiseString = [NSString stringWithFormat:@"%ld",model.praiseNum];
+    [_praiseBtn setTitle:praiseString forState:UIControlStateNormal];
+    [_praiseBtn setTintColor:[UIColor grayColor]];
+    _praiseBtn.frame = CGRectMake(SCREENWITH-60*kWidthFactor, 5*kHeightFactor, 100, 20*kHeightFactor);
+    [_praiseBtn sizeToFit];
+    [_praiseBtn setImage:[UIImage imageNamed:@"like"] forState:UIControlStateNormal];
+    [_praiseBtn setImage:[UIImage imageNamed:@"likehighlight"] forState:UIControlStateSelected];
+
 
     _vipSymbolBtn.frame = CGRectMake(vipSymbolY, 10*kHeightFactor, 15, 15);
+    [_vipSymbolBtn setImage:[UIImage imageNamed:@"crown"] forState:UIControlStateNormal];
     if (model.isVIP) {
         _vipSymbolBtn.hidden = NO;
     }
@@ -114,27 +128,9 @@
 
 + (CGSize)calculateStringLength:(NSString *)str{
     
-    CGSize size;
-    
-    
-    
-    NSAttributedString* atrString = [[NSAttributedString alloc] initWithString:str];
-    
-    
-    
-    NSRange range = NSMakeRange(0, atrString.length);
-    
-    
-    
-    NSDictionary* dic = [atrString attributesAtIndex:0 effectiveRange:&range];
-    
-    
-    
-    size = [str boundingRectWithSize:CGSizeMake(SCREENWITH - 215*kWidthFactor, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil].size;
-    
-
-    size = CGSizeMake(SCREENWITH, size.height + 30*kHeightFactor);
+    CGSize size = CGSizeMake(SCREENWITH, labelHeight + 60*kHeightFactor);
     
     return  size;
 }
+
 @end
