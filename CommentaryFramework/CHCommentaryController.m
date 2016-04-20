@@ -8,8 +8,8 @@
 
 #import "CHCommentaryController.h"
 #import "CHCommentaryTableView.h"
-@implementation CHCommentaryController
 
+@implementation CHCommentaryController
 
 - (void)viewDidLoad
 {
@@ -17,6 +17,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    
+    
+   
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
