@@ -7,10 +7,10 @@
 //
 
 #import "CHNetRequest.h"
-#import "CommentaryModel.h"
+#import "CHCommentaryModel.h"
 
-@interface CommentaryApi : CHNetRequest
+@interface CHCommentaryApi : CHNetRequest
 @property (assign ,nonatomic) NSInteger index;
-- (NSArray <CommentaryModelItems *>*)getItems;
+- (NSArray <CHCommentaryModelItems *>*)getItems;
 
 @end

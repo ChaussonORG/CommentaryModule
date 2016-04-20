@@ -6,10 +6,10 @@
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 
-#import "CommentaryApi.h"
+#import "CHCommentaryApi.h"
 
-@implementation CommentaryApi{
-    CommentaryModel *_model;
+@implementation CHCommentaryApi{
+   CHCommentaryModel *_model;
 }
 - (instancetype)init
 {
@@ -21,7 +21,6 @@
 -(NSString *)customUrl
 {
     return @"http://p2pguide.sudaotech.com/platform/app/comment/list/28";
-
 }
 
 - (NSDictionary *)requestParameter{
@@ -36,9 +35,9 @@
 }
 - (void)requestCompletionBeforeBlock{
     NSError *err ;
-    _model = [[CommentaryModel alloc]initWithDictionary:self.response.responseJSONObject error:&err];
+    _model = [[CHCommentaryModel alloc]initWithDictionary:self.response.responseJSONObject error:&err];
 }
-- (NSArray <CommentaryModelItems *>*)getItems{
+- (NSArray <CHCommentaryModelItems *>*)getItems{
     if (_model.code == 200) {
         return  _model.data.items?_model.data.items:nil;
     }else{

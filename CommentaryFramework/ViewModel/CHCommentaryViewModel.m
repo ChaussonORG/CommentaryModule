@@ -7,29 +7,33 @@
 //
 
 #import "CHCommentaryViewModel.h"
-#import "CommentaryApi.h"
+#import "CHCommentaryApi.h"
 #import <CHNetworking.h>
 #import <ReactiveCocoa.h>
+#import "CHSendCommentApi.h"
 @implementation CHCommentaryViewModel{
-    CommentaryApi *api;
+    CHCommentaryApi *_api;
+    CHSendCommentApi *_sendApi;
 }
 - (instancetype)init
 {
     if (self = [super init]) {
         self.cellViewModel = [NSMutableArray  array];
-        api = [[CommentaryApi alloc] init];
+        _api = [[CHCommentaryApi alloc] init];
+        _sendApi = [[CHSendCommentApi alloc] init];
+
     }
     return self;
 }
 - (void)requestData
 {
-    api.index = 0;
+    _api.index = 0;
     @weakify(self)
-    [api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
-        CommentaryApi *comment = (CommentaryApi *)request;
+    [_api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
+        CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray array];
         @strongify(self)
-        for (CommentaryModelItems *items in [comment getItems]) {
+        for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
         self.cellViewModel = [cellViewModel copy];
@@ -40,13 +44,13 @@
 }
 - (void)requestFooterData
 {
-    api.index = self.cellViewModel.count;
+    _api.index = self.cellViewModel.count;
     @weakify(self)
-    [api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
-        CommentaryApi *comment = (CommentaryApi *)request;
+    [_api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
+        CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray arrayWithArray:[self.cellViewModel copy]];
         @strongify(self)
-        for (CommentaryModelItems *items in [comment getItems]) {
+        for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
         self.cellViewModel = [cellViewModel copy];
@@ -54,8 +58,21 @@
         
     }];
 }
-
-- (CHCommentaryCellVM *)assemblyViewModelWithItem:(CommentaryModelItems *)items
+- (void)sendText:(NSString *)text
+{
+   // self.isFinish = @"0";
+    _sendApi.content = text;
+    [_sendApi startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
+        if ([[request.response.responseJSONObject objectForKey:@"code"] isEqualToString:@"1999"]) {
+            self.isFinish = [request.response.responseJSONObject objectForKey:@"message"];
+        }else{
+            self.isFinish = @"1";
+        }
+    } failureBlock:^(__kindof CHBaseRequest *request) {
+        self.isFinish = @"2";
+    }];
+}
+- (CHCommentaryCellVM *)assemblyViewModelWithItem:(CHCommentaryModelItems *)items
 {
     CHCommentaryCellVM *cellVM = [[CHCommentaryCellVM alloc] init];
     cellVM.name = items.userName;

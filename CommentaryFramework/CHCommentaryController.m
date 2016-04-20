@@ -12,27 +12,28 @@
 #import <MJRefresh/MJRefresh.h>
 
 @implementation CHCommentaryController
-
+- (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel{
+    self = [super init];
+    if (self) {
+        self -> _viewModel = viewModel;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
-    self.viewModel = [[CHCommentaryViewModel alloc] init];
+    self.view.backgroundColor = [UIColor blueColor];
+    self.navigationController.navigationBar.translucent = NO;
+    //列表ViewModel
+    NSAssert(self.viewModel != nil, @"%@ VM is nil ",[self class]);
     [self.viewModel requestData];
-    self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStyleGrouped)];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    [self setupTableView];
+
     [self.view addSubview:self.tableView];
-    @weakify(self);
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
-        [self.viewModel requestData];
-        
-    }];
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        @strongify(self);
-        [self.viewModel requestFooterData];
-    }];    [self binding];
+    [self blindViewModel];
+    
 }
-- (void)binding
+#pragma mark Blind
+- (void)blindViewModel
 {
     @weakify(self)
     [RACObserve(self.viewModel, cellViewModel) subscribeNext:^(id x) {
@@ -42,21 +43,33 @@
         [self.tableView.mj_footer endRefreshing];
     }];
 }
+#pragma mark Private
+- (void)setupTableView{
+    //self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStylePlain)];
+    self.tableView = [[CHCommentaryTableView alloc] initWithOwner:self];
+    @weakify(self);
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self.viewModel requestData];
+        
+    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        [self.viewModel requestFooterData];
+    }];
+}
+
+#pragma mark TableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    static NSString *cellStr = @"cell";
-    CHCommentaryCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
+
+
+    CHCommentaryCell *cell = [tableView dequeueReusableCellWithIdentifier:[CHCommentaryCell commentaryIdentifier]];
     if (cell == nil) {
-        cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellStr];
+        cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:[CHCommentaryCell commentaryIdentifier]];
     }
 
-    if (self.viewModel.cellViewModel.count) {
-        CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
-        [cell setCellWithModel:cellVM];
-    }
-    
-
+    [cell loadDataWithVM:[self.viewModel.cellViewModel objectAtIndex:indexPath.row]];
     return cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -65,12 +78,15 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.viewModel.cellViewModel.count) {
-    CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
-    
-   CGSize size = [CHCommentaryCell calculateStringLength:cellVM.content];
-    return size.height;
-    }
-    return 0;
+
+    return [CHCommentaryCell calculateHengthViewModel:[self.viewModel.cellViewModel objectAtIndex:indexPath.row]];
 }
+//创建发送框和按钮
+- (void)creatSendView
+{
+    self.keyBofardView = [[CHInputkeyboard alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
+    [self.view addSubview:self.keyBofardView];
+
+}
+
 @end

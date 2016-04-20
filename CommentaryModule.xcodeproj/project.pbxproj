@@ -22,8 +22,9 @@
 		06A5FEC31CC5FD4B00CCCC10 /* CHCommentaryCellVM.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A5FEC21CC5FD4B00CCCC10 /* CHCommentaryCellVM.m */; };
 		06A5FEC61CC5FD5C00CCCC10 /* CHCommentaryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A5FEC51CC5FD5C00CCCC10 /* CHCommentaryViewModel.m */; };
 		2687ADEF77CE33D2B3E7F089 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8205569DF3C4A1ED444405A3 /* libPods.a */; };
-		6840734F1CC6287100C56CD4 /* CommentaryApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 6840734E1CC6287100C56CD4 /* CommentaryApi.m */; };
-		684073531CC628CF00C56CD4 /* CommentaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 684073521CC628CF00C56CD4 /* CommentaryModel.m */; };
+		6840734F1CC6287100C56CD4 /* CHCommentaryApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 6840734E1CC6287100C56CD4 /* CHCommentaryApi.m */; };
+		684073531CC628CF00C56CD4 /* CHCommentaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 684073521CC628CF00C56CD4 /* CHCommentaryModel.m */; };
+		684C47591CC75A8F00457D46 /* CHSendCommentApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 684C47581CC75A8F00457D46 /* CHSendCommentApi.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,10 +74,12 @@
 		06A5FEC41CC5FD5C00CCCC10 /* CHCommentaryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommentaryViewModel.h; sourceTree = "<group>"; };
 		06A5FEC51CC5FD5C00CCCC10 /* CHCommentaryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommentaryViewModel.m; sourceTree = "<group>"; };
 		5E39723B56497BAFBB8E4804 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		6840734D1CC6287100C56CD4 /* CommentaryApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentaryApi.h; sourceTree = "<group>"; };
-		6840734E1CC6287100C56CD4 /* CommentaryApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentaryApi.m; sourceTree = "<group>"; };
-		684073511CC628CF00C56CD4 /* CommentaryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentaryModel.h; sourceTree = "<group>"; };
-		684073521CC628CF00C56CD4 /* CommentaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentaryModel.m; sourceTree = "<group>"; };
+		6840734D1CC6287100C56CD4 /* CHCommentaryApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommentaryApi.h; sourceTree = "<group>"; };
+		6840734E1CC6287100C56CD4 /* CHCommentaryApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommentaryApi.m; sourceTree = "<group>"; };
+		684073511CC628CF00C56CD4 /* CHCommentaryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCommentaryModel.h; sourceTree = "<group>"; };
+		684073521CC628CF00C56CD4 /* CHCommentaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommentaryModel.m; sourceTree = "<group>"; };
+		684C47571CC75A8F00457D46 /* CHSendCommentApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSendCommentApi.h; sourceTree = "<group>"; };
+		684C47581CC75A8F00457D46 /* CHSendCommentApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSendCommentApi.m; sourceTree = "<group>"; };
 		8205569DF3C4A1ED444405A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9D080615AA3087DBA614D3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,7 +180,6 @@
 			children = (
 				684073501CC628B700C56CD4 /* Model */,
 				6840734C1CC6284E00C56CD4 /* Api */,
-				D34A95B61CC67BC700445586 /* Header */,
 				06A5FEC01CC5FD3600CCCC10 /* ViewModel */,
 				06A5FEB61CC5FC8C00CCCC10 /* View */,
 				06A5FEB31CC5FB1700CCCC10 /* CHCommentaryController.h */,
@@ -221,8 +223,10 @@
 		6840734C1CC6284E00C56CD4 /* Api */ = {
 			isa = PBXGroup;
 			children = (
-				6840734D1CC6287100C56CD4 /* CommentaryApi.h */,
-				6840734E1CC6287100C56CD4 /* CommentaryApi.m */,
+				6840734D1CC6287100C56CD4 /* CHCommentaryApi.h */,
+				6840734E1CC6287100C56CD4 /* CHCommentaryApi.m */,
+				684C47571CC75A8F00457D46 /* CHSendCommentApi.h */,
+				684C47581CC75A8F00457D46 /* CHSendCommentApi.m */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -230,8 +234,8 @@
 		684073501CC628B700C56CD4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				684073511CC628CF00C56CD4 /* CommentaryModel.h */,
-				684073521CC628CF00C56CD4 /* CommentaryModel.m */,
+				684073511CC628CF00C56CD4 /* CHCommentaryModel.h */,
+				684073521CC628CF00C56CD4 /* CHCommentaryModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,14 +247,6 @@
 				AE9D080615AA3087DBA614D3 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		D34A95B61CC67BC700445586 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Header;
-			path = Api/Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,8 +431,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				06A5FEB51CC5FB1700CCCC10 /* CHCommentaryController.m in Sources */,
-				684073531CC628CF00C56CD4 /* CommentaryModel.m in Sources */,
-				6840734F1CC6287100C56CD4 /* CommentaryApi.m in Sources */,
+				684073531CC628CF00C56CD4 /* CHCommentaryModel.m in Sources */,
+				6840734F1CC6287100C56CD4 /* CHCommentaryApi.m in Sources */,
 				06A5FE841CC5F90000CCCC10 /* ViewController.m in Sources */,
 				06A5FEBF1CC5FCC700CCCC10 /* CHCommentaryCell.m in Sources */,
 				06A5FE811CC5F90000CCCC10 /* AppDelegate.m in Sources */,
@@ -445,6 +441,7 @@
 				06A5FE7E1CC5F90000CCCC10 /* main.m in Sources */,
 				06A5FEBC1CC5FCAD00CCCC10 /* CHCommentaryTableView.m in Sources */,
 				06A5FEC61CC5FD5C00CCCC10 /* CHCommentaryViewModel.m in Sources */,
+				684C47591CC75A8F00457D46 /* CHSendCommentApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
