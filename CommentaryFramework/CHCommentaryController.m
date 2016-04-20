@@ -50,18 +50,23 @@
     if (cell == nil) {
         cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellStr];
     }
-    CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
-    [cell setCellWithModel:cellVM];
+    if (self.viewModel.cellViewModel.count) {
+        CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
+        [cell setCellWithModel:cellVM];
+    }
     return cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.viewModel.cellViewModel.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
-   CGSize size = [CHCommentaryCell calculateStringLength:cellVM.content];
-    return size.height;
+    if (self.viewModel.cellViewModel.count) {
+        CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
+        CGSize size = [CHCommentaryCell calculateStringLength:cellVM.content];
+        return size.height;
+    }
+    return 0;
 }
 @end

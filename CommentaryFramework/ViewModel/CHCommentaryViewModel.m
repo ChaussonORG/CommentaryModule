@@ -7,17 +7,17 @@
 //
 
 #import "CHCommentaryViewModel.h"
-#import "CommentaryApi.h"
+#import "CHCommentaryApi.h"
 #import <CHNetworking.h>
 #import <ReactiveCocoa.h>
 @implementation CHCommentaryViewModel{
-    CommentaryApi *api;
+    CHCommentaryApi *api;
 }
 - (instancetype)init
 {
     if (self = [super init]) {
         self.cellViewModel = [NSMutableArray  array];
-        api = [[CommentaryApi alloc] init];
+        api = [[CHCommentaryApi alloc] init];
     }
     return self;
 }
@@ -26,10 +26,10 @@
     api.index = 0;
     @weakify(self)
     [api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
-        CommentaryApi *comment = (CommentaryApi *)request;
+        CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray array];
         @strongify(self)
-        for (CommentaryModelItems *items in [comment getItems]) {
+        for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
         self.cellViewModel = [cellViewModel copy];
@@ -43,10 +43,10 @@
     api.index = self.cellViewModel.count;
     @weakify(self)
     [api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
-        CommentaryApi *comment = (CommentaryApi *)request;
+        CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray arrayWithArray:[self.cellViewModel copy]];
         @strongify(self)
-        for (CommentaryModelItems *items in [comment getItems]) {
+        for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
         self.cellViewModel = [cellViewModel copy];
@@ -55,7 +55,7 @@
     }];
 }
 
-- (CHCommentaryCellVM *)assemblyViewModelWithItem:(CommentaryModelItems *)items
+- (CHCommentaryCellVM *)assemblyViewModelWithItem:(CHCommentaryModelItems *)items
 {
     CHCommentaryCellVM *cellVM = [[CHCommentaryCellVM alloc] init];
     cellVM.name = items.userName;

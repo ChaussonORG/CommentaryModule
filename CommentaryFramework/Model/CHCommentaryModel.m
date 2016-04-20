@@ -6,16 +6,16 @@
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 
-#import "CommentaryModel.h"
+#import "CHCommentaryModel.h"
 
-@implementation CommentaryModelItems
-
-@end
-
-@implementation CommentaryModelData
+@implementation CHCommentaryModelItems
 
 @end
 
-@implementation CommentaryModel
+@implementation CHCommentaryModelData
+
+@end
+
+@implementation CHCommentaryModel
 
 @end

@@ -7,12 +7,12 @@
 //
 
 #import <JSONModel/JSONModel.h>
-@class CommentaryModelItems;
-@protocol CommentaryModelItems <NSObject>
+@class CHCommentaryModelItems;
+@protocol CHCommentaryModelItems <NSObject>
 
 @end
 
-@interface CommentaryModelItems :JSONModel
+@interface CHCommentaryModelItems :JSONModel
 @property (copy ,nonatomic )NSString <Optional>*userName;
 
 @property (copy, nonatomic)NSString <Optional>*photo;
@@ -24,12 +24,12 @@
 @property (assign, nonatomic)int createBy;
 @end
 
-@interface  CommentaryModelData:JSONModel
-@property (nonatomic, strong)NSArray <Optional,CommentaryModelItems>*items;
+@interface  CHCommentaryModelData:JSONModel
+@property (nonatomic, strong)NSArray <Optional,CHCommentaryModelItems>*items;
 @end
 
-@interface CommentaryModel : JSONModel
-@property (nonatomic, strong)CommentaryModelData <Optional>*data;
+@interface CHCommentaryModel : JSONModel
+@property (nonatomic, strong)CHCommentaryModelData <Optional>*data;
 @property (assign ,nonatomic) int code;
 @property (copy ,nonatomic) NSString <Optional>*message;
 @end

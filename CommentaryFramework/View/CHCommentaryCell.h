@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CHCommentaryCellVM.h"
 @interface CHCommentaryCell : UITableViewCell
 
 @property(nonatomic,strong)UIButton *nameBtn;
