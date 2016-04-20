@@ -7,7 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol CHCommentarySendDelegate <NSObject>
+
+- (void)pressSendBtn:(NSString *)text;
+
+@end
 
 @interface CHInputkeyboard : UIView
+{
+    id<CHCommentarySendDelegate>obj;
+}
+
+@property(nonatomic,strong)UITextView *textView;
+
+@property(nonatomic,strong)UIButton *sendBtn;
+
+- (instancetype)initWithObj:(id<CHCommentarySendDelegate>)o;
 
 @end
