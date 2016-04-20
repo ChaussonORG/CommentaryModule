@@ -21,7 +21,6 @@
 -(NSString *)customUrl
 {
     return @"http://p2pguide.sudaotech.com/platform/app/comment/list/28";
-
 }
 
 - (NSDictionary *)requestParameter{

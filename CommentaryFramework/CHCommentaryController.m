@@ -15,9 +15,13 @@
 
 - (void)viewDidLoad
 {
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.translucent = NO;
+    //列表ViewModel
     self.viewModel = [[CHCommentaryViewModel alloc] init];
     [self.viewModel requestData];
-    self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStyleGrouped)];
+    self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30) style:(UITableViewStylePlain)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -30,7 +34,9 @@
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
         [self.viewModel requestFooterData];
-    }];    [self binding];
+    }];
+    [self binding];
+    
 }
 - (void)binding
 {
@@ -54,7 +60,7 @@
         CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
         [cell setCellWithModel:cellVM];
     }
-    return cell;
+        return cell;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -68,5 +74,13 @@
         return size.height;
     }
     return 0;
+}
+//创建发送框和按钮
+- (void)creatSendView
+{
+    self.keyBofardView = [[CHInputkeyboard alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
+    [self.view addSubview:self.keyBofardView];
+
+    
 }
 @end

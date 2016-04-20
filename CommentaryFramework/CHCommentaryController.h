@@ -10,8 +10,12 @@
 #import "CHCommentaryViewModel.h"
 #import "CHCommentaryTableView.h"
 #import "CHCommentaryCell.h"
+#import "CHInputkeyboard.h"
 @interface CHCommentaryController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)CHCommentaryViewModel *viewModel;
 
 @property (nonatomic, strong)CHCommentaryTableView *tableView;
+
+@property (nonatomic, strong)CHInputkeyboard *keyBofardView;
+
 @end
