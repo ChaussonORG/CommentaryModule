@@ -9,11 +9,15 @@
 #import "CHCommentaryTableView.h"
 
 @implementation CHCommentaryTableView
-//-(instancetype)initWithFrame:(CGRect)frame{
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        
-//    }
-//    return self;
-//}
+- (instancetype)initWithOwner:(UIViewController <UITableViewDelegate,UITableViewDataSource>*)controller{
+    CGRect rect = controller.view.frame;
+    self.delegate = controller;
+    self.dataSource = controller;
+    self = [super initWithFrame:rect style:UITableViewStylePlain];
+       NSLog(@"rect=%@",NSStringFromCGRect(rect));
+    if (self) {
+        
+    }
+    return self;
+}
 @end

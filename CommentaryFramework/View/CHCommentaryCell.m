@@ -68,7 +68,7 @@ CGFloat labelHeight;
     [self.contentView addSubview:self.vipSymbolBtn];
 }
 
-- (void)setCellWithModel:(CHCommentaryCellVM*)model{
+- (void)loadDataWithVM:(CHCommentaryCellVM *)model{
     
     _nameBtn.titleLabel.numberOfLines = 1;
     _nameBtn.titleLabel.font = [UIFont systemFontOfSize:COMMENTARYNAMEFONTSIZE*kWidthFactor];
@@ -126,11 +126,13 @@ CGFloat labelHeight;
     }
 }
 
-+ (CGSize)calculateStringLength:(NSString *)str{
++ (CGFloat )calculateHengthViewModel:(CHCommentaryCellVM *)viewModel{
     
     CGSize size = CGSizeMake(SCREENWITH, labelHeight + 60*kHeightFactor);
-    
-    return  size;
-}
 
+    return  size.height;
+}
++ (NSString *)commentaryIdentifier{
+    return @"CommentraryCell";
+}
 @end

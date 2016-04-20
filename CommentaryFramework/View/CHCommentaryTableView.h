@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CHCommentaryTableView : UITableView
-
+- (instancetype)initWithOwner:(UIViewController <UITableViewDelegate,UITableViewDataSource>*)controller;
 @end
