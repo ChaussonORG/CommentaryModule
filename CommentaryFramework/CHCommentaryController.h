@@ -11,7 +11,7 @@
 #import "CHCommentaryTableView.h"
 #import "CHCommentaryCell.h"
 #import "CHInputkeyboard.h"
-@interface CHCommentaryController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface CHCommentaryController : UIViewController<UITableViewDelegate, UITableViewDataSource, CHCommentarySendDelegate, UITextViewDelegate>
 + (instancetype )new  __unavailable;
 - (instancetype )init __unavailable;
 - (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel;

@@ -11,4 +11,13 @@
 @interface CHSendCommentApi : CHNetRequest
 @property (nonatomic, assign)int parent;
 @property (nonatomic, strong)NSString *content;
+/**
+ *  @brief 初始化评论列表API
+ *  @param  url是接口地址 identifier代表接口参数 token代表用户token
+ *  @return 返回实例对象
+ */
+- (instancetype)initWithUrl:(NSString *)url
+                 identifier:(NSString *)identifier
+                      token:(NSString *)token;
+
 @end

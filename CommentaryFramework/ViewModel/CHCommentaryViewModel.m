@@ -15,12 +15,12 @@
     CHCommentaryApi *_api;
     CHSendCommentApi *_sendApi;
 }
-- (instancetype)init
+- (instancetype)initWithToken:(NSString *)token Url:(NSString *)url identifier:(NSString *)identifier
 {
     if (self = [super init]) {
         self.cellViewModel = [NSMutableArray  array];
-        _api = [[CHCommentaryApi alloc] init];
-        _sendApi = [[CHSendCommentApi alloc] init];
+        _api = [[CHCommentaryApi alloc] initWithUrl:url identifier:identifier];
+        _sendApi = [[CHSendCommentApi alloc] initWithUrl:url identifier:identifier token:token];
 
     }
     return self;

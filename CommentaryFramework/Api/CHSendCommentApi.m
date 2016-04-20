@@ -8,19 +8,25 @@
 
 #import "CHSendCommentApi.h"
 
-@implementation CHSendCommentApi
-- (instancetype)init
+@implementation CHSendCommentApi{
+    NSString *_url;
+    NSString *_identifier;
+    NSString *_token;
+}
+- (instancetype)initWithUrl:(NSString *)url identifier:(NSString *)identifier token:(NSString *)token
 {
     self = [super init];
     if (self) {
-        
+        _url = url;
+        _identifier = identifier;
+        _token = token;
     }
     return self;
 }
 
 -(NSString *)customUrl
 {
-    return @"http://p2pguide.sudaotech.com/platform/app/comment";
+    return _url;
 }
 - (CHRequestMethod)requestMethod
 {
@@ -29,14 +35,14 @@
 - (NSDictionary *)requestParameter
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:[NSString stringWithFormat:@"28"] forKey:@"parent"];
+    [params setObject:_identifier forKey:@"parent"];
     [params setObject:self.content forKey:@"content"];
     return params;
 }
 - (NSDictionary *)requestHeaderFieldValueDictionary
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString *token = [NSString stringWithFormat:@"_MCH_AT=%@", @"8rc3%2BVwxuDpgiOEW%2Fe37%2FMAQjeHM6HFb6K3cNEpmVHQ1Gfvx8YI%2BpkAzov2ysr9ExKdh3MRoPFqlBoRqEqucSSDLPsTP%2FyAr1BHoRG%2BvDO5XBUtGzSvIGBjfEiim%2Fy97peUK8KsIYKi%2FJmNhAS4QtQ%3D%3D"];
+    NSString *token = [NSString stringWithFormat:@"_MCH_AT=%@", _token];
     [dic setObject:token forKey:@"cookie"];
     return dic;
 }

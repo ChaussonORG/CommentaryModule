@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (IBAction)push:(UIButton *)sender {
-    CHCommentaryViewModel *viewModel = [[CHCommentaryViewModel alloc]init];
+    CHCommentaryViewModel *viewModel = [[CHCommentaryViewModel alloc]initWithToken:@"8rc3%2BVwxuDpgiOEW%2Fe37%2FMAQjeHM6HFb6K3cNEpmVHQ1Gfvx8YI%2BpkAzov2ysr9ExKdh3MRoPFqlBoRqEqucSSDLPsTP%2FyAr1BHoRG%2BvDO5XBUtGzSvIGBjfEiim%2Fy97peUK8KsIYKi%2FJmNhAS4QtQ%3D%3D" Url:@"http://p2pguide.sudaotech.com/platform/app/comment/list" identifier:@"28"];
     CHCommentaryController *controller = [[CHCommentaryController alloc]initWithViewModel:viewModel];
     [self.navigationController pushViewController:controller animated:YES];
 }

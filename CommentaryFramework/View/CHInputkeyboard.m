@@ -38,7 +38,7 @@
         self.textView.text = @"";
     }];
 }
-- (instancetype)initWithOwner:(UIViewController <UITextViewDelegate>*)controller Obj:(id<CHCommentarySendDelegate>)o {
+- (instancetype)initWithOwner:(UIViewController <UITextViewDelegate, CHCommentarySendDelegate>*)controller{
     
     CGSize size = controller.view.frame.size;
     _textView.delegate = controller;
@@ -47,8 +47,7 @@
     if (self) {
         
         [self prepareForLayout];
-        obj = o;
-        
+        obj = controller;
         [[NSNotificationCenter defaultCenter] addObserver:controller
                                                  selector:@selector(handleKeyboardShow:)
                                                      name:UIKeyboardWillShowNotification

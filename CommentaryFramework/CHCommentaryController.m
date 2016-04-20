@@ -68,7 +68,6 @@
     if (cell == nil) {
         cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:[CHCommentaryCell commentaryIdentifier]];
     }
-
     [cell loadDataWithVM:[self.viewModel.cellViewModel objectAtIndex:indexPath.row]];
     return cell;
 }
@@ -84,9 +83,12 @@
 //创建发送框和按钮
 - (void)creatSendView
 {
-    self.keyBofardView = [[CHInputkeyboard alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40)];
+    self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
     [self.view addSubview:self.keyBofardView];
 
 }
-
+- (void)pressSendBtn:(NSString *)text
+{
+    
+}
 @end

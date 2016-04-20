@@ -10,29 +10,26 @@
 
 @implementation CHCommentaryApi{
    CHCommentaryModel *_model;
+    NSString *_url;
+    NSString *_identifier;
 }
-- (instancetype)init
+- (instancetype)initWithUrl:(NSString *)url identifier:(NSString *)identifier
 {
     if (self = [super init]) {
-        
+        _url = url;
+        _identifier = identifier;
     }
     return self;
 }
 -(NSString *)customUrl
 {
-    return @"http://p2pguide.sudaotech.com/platform/app/comment/list/28";
+    return [NSString stringWithFormat:@"%@/%@", _url, _identifier];
 }
 
 - (NSDictionary *)requestParameter{
     return @{@"offset":@(self.index)};
 }
-- (NSDictionary *)requestHeaderFieldValueDictionary
-{
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString *token = [NSString stringWithFormat:@"_MCH_AT=%@", @"8rc3%2BVwxuDpgiOEW%2Fe37%2FMAQjeHM6HFb6K3cNEpmVHQ1Gfvx8YI%2BpkAzov2ysr9ExKdh3MRoPFqlBoRqEqucSSDLPsTP%2FyAr1BHoRG%2BvDO5XBUtGzSvIGBjfEiim%2Fy97peUK8KsIYKi%2FJmNhAS4QtQ%3D%3D"];
-    [dic setObject:token forKey:@"cookie"];
-    return dic;
-}
+
 - (void)requestCompletionBeforeBlock{
     NSError *err ;
     _model = [[CHCommentaryModel alloc]initWithDictionary:self.response.responseJSONObject error:&err];
