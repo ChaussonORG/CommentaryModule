@@ -22,11 +22,9 @@
 
 @property(nonatomic,strong)UIButton *vipSymbolBtn;
 
+- (void )loadDataWithVM:(CHCommentaryCellVM *)model;
++ (CGSize )calculateStringLength:(NSString *)str;
++ (NSString *)commentaryIdentifier;
 
-- (void)setCellWithModel:(CHCommentaryCellVM*)model;
 
-
-+ (CGSize)calculateStringLength:(NSString *)str;
-
-- (void)setCellWithModel:(CHCommentaryCellVM*)model;
 @end

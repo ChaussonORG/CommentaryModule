@@ -12,27 +12,26 @@
 #import <MJRefresh/MJRefresh.h>
 
 @implementation CHCommentaryController
-
+- (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel{
+    self = [super init];
+    if (self) {
+        self -> _viewModel = viewModel;
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
-    self.viewModel = [[CHCommentaryViewModel alloc] init];
+    NSAssert(self.viewModel != nil, @"%@",[self class]);
     [self.viewModel requestData];
-    self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStyleGrouped)];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    [self setupTableView];
+
     [self.view addSubview:self.tableView];
-    @weakify(self);
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
-        [self.viewModel requestData];
-        
-    }];
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        @strongify(self);
-        [self.viewModel requestFooterData];
-    }];    [self binding];
+    
+    [self blindViewModel];
+    
 }
-- (void)binding
+#pragma mark Blind
+- (void)blindViewModel
 {
     @weakify(self)
     [RACObserve(self.viewModel, cellViewModel) subscribeNext:^(id x) {
@@ -42,20 +41,31 @@
         [self.tableView.mj_footer endRefreshing];
     }];
 }
+#pragma mark Private
+- (void)setupTableView{
+    self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStyleGrouped)];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    @weakify(self);
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        [self.viewModel requestData];
+        
+    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        [self.viewModel requestFooterData];
+    }];
+}
+#pragma mark TableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    static NSString *cellStr = @"cell";
-    CHCommentaryCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
-    if (cell == nil) {
-        cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:cellStr];
-    }
 
-    if (self.viewModel.cellViewModel.count) {
-        CHCommentaryCellVM *cellVM = [self.viewModel.cellViewModel objectAtIndex:indexPath.row];
-        [cell setCellWithModel:cellVM];
+    CHCommentaryCell *cell = [tableView dequeueReusableCellWithIdentifier:[CHCommentaryCell commentaryIdentifier]];
+    if (cell == nil) {
+        cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:[CHCommentaryCell commentaryIdentifier]];
     }
-    
+    [cell loadDataWithVM:[self.viewModel.cellViewModel objectAtIndex:indexPath.row]];
 
     return cell;
 }
@@ -73,4 +83,5 @@
     }
     return 0;
 }
+
 @end

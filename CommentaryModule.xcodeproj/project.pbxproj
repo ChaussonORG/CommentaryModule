@@ -177,7 +177,6 @@
 			children = (
 				684073501CC628B700C56CD4 /* Model */,
 				6840734C1CC6284E00C56CD4 /* Api */,
-				D34A95B61CC67BC700445586 /* Header */,
 				06A5FEC01CC5FD3600CCCC10 /* ViewModel */,
 				06A5FEB61CC5FC8C00CCCC10 /* View */,
 				06A5FEB31CC5FB1700CCCC10 /* CHCommentaryController.h */,
@@ -243,14 +242,6 @@
 				AE9D080615AA3087DBA614D3 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		D34A95B61CC67BC700445586 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Header;
-			path = Api/Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

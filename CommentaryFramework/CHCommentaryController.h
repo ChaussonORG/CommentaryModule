@@ -11,6 +11,10 @@
 #import "CHCommentaryTableView.h"
 #import "CHCommentaryCell.h"
 @interface CHCommentaryController : UIViewController<UITableViewDelegate, UITableViewDataSource>
++ (instancetype )new  __unavailable;
+- (instancetype )init __unavailable;
+- (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel;
+
 @property (nonatomic, strong)CHCommentaryViewModel *viewModel;
 
 @property (nonatomic, strong)CHCommentaryTableView *tableView;
