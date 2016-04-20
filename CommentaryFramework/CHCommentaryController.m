@@ -31,6 +31,8 @@
     [self.view addSubview:self.tableView];
     [self blindViewModel];
     
+    [self creatSendView];
+    
 }
 #pragma mark Blind
 - (void)blindViewModel
