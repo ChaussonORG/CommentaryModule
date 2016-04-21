@@ -14,12 +14,14 @@
 @interface CHCommentaryController : UIViewController<UITableViewDelegate, UITableViewDataSource, CHCommentarySendDelegate, UITextViewDelegate>
 + (instancetype )new  __unavailable;
 - (instancetype )init __unavailable;
-- (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel;
+- (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel withLoginVC:(UIViewController *)LoginVC;
 
 @property (nonatomic, strong)CHCommentaryViewModel *viewModel;
 
 @property (nonatomic, strong)CHCommentaryTableView *tableView;
 
 @property (nonatomic, strong)CHInputkeyboard *keyBofardView;
+
+@property (nonatomic, strong)UIViewController *logInVC;
 
 @end

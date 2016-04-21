@@ -13,7 +13,6 @@
 #import "CHSendCommentApi.h"
 @interface CHCommentaryViewModel()
 @property (nonatomic, strong) NSMutableArray <CHCommentaryCellVM *> *cellViewModel;
-@property (nonatomic, assign) BOOL isFinish;
 @end
 @implementation CHCommentaryViewModel{
     CHCommentaryApi *_api;
