@@ -19,16 +19,17 @@
     CHCommentaryApi *_api;
     CHSendCommentApi *_sendApi;
 }
-- (instancetype)initWithToken:(NSString *)token Url:(NSString *)url identifier:(NSString *)identifier
+- (instancetype)initWithToken:(NSString *)token ListUrl:(NSString *)Listurl sendCommentUrl:(NSString *)sendCommentUrl identifier:(NSString *)identifier
 {
     if (self = [super init]) {
         self.cellViewModel = [NSMutableArray  array];
-        _api = [[CHCommentaryApi alloc] initWithUrl:url identifier:identifier];
-        _sendApi = [[CHSendCommentApi alloc] initWithUrl:url identifier:identifier token:token];
+        _api = [[CHCommentaryApi alloc] initWithUrl:Listurl identifier:identifier];
+        _sendApi = [[CHSendCommentApi alloc] initWithUrl:sendCommentUrl identifier:identifier token:token];
 
     }
     return self;
 }
+
 - (void)requestData
 {
     _api.index = 0;
@@ -62,9 +63,8 @@
         
     }];
 }
-- (void)sendWithMessage:(NSString *)message andCompletion:(void(^)())completion
+- (void)sendWithMessage:(NSString *)message andCompletion:(void(^)(BOOL))completion
 {
-   // self.isFinish = @"0";
     _sendApi.content = message;
     [_sendApi startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
         NSString *message = [request.response.responseJSONObject objectForKey:@"message"];
@@ -73,11 +73,11 @@
             [alert show];
         }
         if (completion) {
-            completion();
+            completion(YES);
         }
     } failureBlock:^(__kindof CHBaseRequest *request) {
         if (completion) {
-            completion();
+            completion(NO);
         }
     }];
 }

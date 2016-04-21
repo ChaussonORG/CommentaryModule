@@ -42,6 +42,7 @@
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
     }];
+
 }
 #pragma mark Private
 - (void)addSubview{
@@ -93,9 +94,12 @@
 }
 - (void)pressSendBtn:(NSString *)text
 {
-    [self.viewModel sendWithMessage:text andCompletion:^{
-        //
+    [self.viewModel sendWithMessage:text andCompletion:^(BOOL result) {
+        if (result) {
+            [self.viewModel requestData];
+        }
     }];
+   
 }
 
 

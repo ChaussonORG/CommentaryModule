@@ -10,14 +10,15 @@
 #import "CHCommentaryCellVM.h"
 @interface CHCommentaryViewModel : NSObject
 @property (nonatomic, strong, readonly) NSMutableArray <CHCommentaryCellVM *> *cellViewModel;
-//@property (nonatomic, assign, readonly) BOOL isFinish;//如果YES加载成功,提示成功! 如果NO表示加载失败,提示失败!
+@property (nonatomic, assign, readonly) BOOL isSignIn;//如果YES表示已经登录! 如果NO表示没有登录!
+@property (nonatomic, assign, readonly) BOOL isFinish;//如果YES表示已经发送成功! 如果NO表示发送失败!
 - (void)requestData;
 - (void)requestFooterData;
-- (void)sendWithMessage:(NSString *)message andCompletion:(void(^)())completion;
+- (void)sendWithMessage:(NSString *)message andCompletion:(void(^)(BOOL))completion;
 /**
  *  @brief 初始化viewmodel
- *  @param token代表用户的token url是接口地址 id代表接口参数
+ *  @param token代表用户的token listUrl是评论列表地址 sendCommentUrl是发送评论地址 id代表接口参数
  *  @return 返回实例对象
  */
-- (instancetype)initWithToken:(NSString *)token Url:(NSString *)url identifier:(NSString *)identifier;
+- (instancetype)initWithToken:(NSString *)token ListUrl:(NSString *)Listurl sendCommentUrl:(NSString *)sendCommentUrl identifier:(NSString *)identifier;
 @end
