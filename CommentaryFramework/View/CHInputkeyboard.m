@@ -89,19 +89,16 @@ CGFloat keyboardHeight;
 #pragma mark -hanlder
 
 - (void)handleKeyboardShow:(NSNotification *) note{
-    NSDictionary *userInfo = note.userInfo;
-    
     //     键盘的frame
-    CGRect keyboardF = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    NSDictionary *userInfo = [note userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    keyboardHeight = height;
+    CGRect rect = CGRectMake(0, SCREENHEIGHT - 50*kHeightFactor-64, [UIScreen mainScreen].bounds.size.width, 50*kHeightFactor);
+    rect.origin.y = rect.origin.y - keyboardHeight;
+    self.frame = rect;
     
-    keyboardHeight = keyboardF.size.height;
-    // 执行动画
-    [UIView animateWithDuration:.5 animations:^{
-        CGRect rect = self.frame;
-        rect.origin.y = rect.origin.y - keyboardHeight;
-        self.frame = rect;
-    } completion:^(BOOL finished) {
-    }];
 }
 
 
@@ -122,7 +119,6 @@ CGFloat keyboardHeight;
     [_textView resignFirstResponder];
     
     if (![self.textView.text isEqualToString:@""]) {
-        NSLog(@"123231");
         [obj pressSendBtn:_textView.text];
     }
     
