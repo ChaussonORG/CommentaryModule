@@ -7,7 +7,7 @@
 //
 
 #import <JSONModel/JSONModel.h>
-@class CHCommentaryModelItems;
+//@class CHCommentaryModelItems;
 @protocol CHCommentaryModelItems <NSObject>
 
 @end

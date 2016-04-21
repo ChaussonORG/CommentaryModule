@@ -29,7 +29,7 @@ CGFloat keyboardHeight;
         
         [self prepareForLayout];
         self.textView.delegate = self;
-        self.backgroundColor = [UIColor redColor];
+
         obj = controller;
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
@@ -47,7 +47,9 @@ CGFloat keyboardHeight;
                                                    object:nil];
         
     }
+    
     return self;
+    
 }
 
 - (void)prepareForLayout{
@@ -62,6 +64,7 @@ CGFloat keyboardHeight;
     
     [self addSubview:self.textView];
     [self addSubview:self.sendBtn];
+    
 }
 
 #pragma mark textViewDelegate
@@ -72,7 +75,9 @@ CGFloat keyboardHeight;
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
+    
     [textView resignFirstResponder];
+    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
@@ -101,7 +106,9 @@ CGFloat keyboardHeight;
         rect.origin.y = rect.origin.y - keyboardHeight;
         self.frame = rect;
     } completion:^(BOOL finished) {
+        
     }];
+    
 }
 
 
@@ -119,24 +126,24 @@ CGFloat keyboardHeight;
 
 - (void)pressSendBtnAction:(UIButton *)button{
     
-    [_textView resignFirstResponder];
-    
     if (![self.textView.text isEqualToString:@""]) {
-        NSLog(@"123231");
+        
         [obj pressSendBtn:_textView.text];
+        [_textView resignFirstResponder];
+        self.textView.text = @"";
+        
     }
-    
-    self.textView.text = @"";
-    
+   
 }
 
 
 #pragma mark Gesture
 
 - (void)keyboardHide:(UITapGestureRecognizer*)tap{
+    
     [_textView resignFirstResponder];
+    
 }
-
 
 
 

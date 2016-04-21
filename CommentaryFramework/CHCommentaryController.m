@@ -31,7 +31,6 @@
     [self addSubview];
     [self blindViewModel];
 
-
 }
 #pragma mark Blind
 - (void)blindViewModel
