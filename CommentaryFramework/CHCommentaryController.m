@@ -29,7 +29,7 @@
     NSAssert(self.viewModel != nil, @"%@ VM is nil ",[self class]);
     [self.viewModel requestData];
     [self setupTableView];
-    [self creatSendView];
+     self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
     [self addSubview];
     [self blindViewModel];
 
@@ -70,8 +70,6 @@
 #pragma mark TableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-
     CHCommentaryCell *cell = [tableView dequeueReusableCellWithIdentifier:[CHCommentaryCell commentaryIdentifier]];
     if (cell == nil) {
         cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:[CHCommentaryCell commentaryIdentifier]];
@@ -87,11 +85,6 @@
 {
 
     return [CHCommentaryCell calculateHengthViewModel:[self.viewModel.cellViewModel objectAtIndex:indexPath.row]];
-}
-//创建发送框和按钮
-- (void)creatSendView
-{
-    self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
 }
 - (void)setBeforeSendMessageBlock:(BefroeSendMessage)beforeBlock{
     _block = beforeBlock;
