@@ -16,37 +16,8 @@
 
 CGFloat keyboardHeight;
 @implementation CHInputkeyboard
-- (void)handleKeyboardShow:(NSNotification *) note{
-    NSDictionary *userInfo = note.userInfo;
-    
-//     键盘的frame
-    CGRect keyboardF = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    keyboardHeight = keyboardF.size.height;
-    // 执行动画
-    [UIView animateWithDuration:.5 animations:^{
-        CGRect rect = self.frame;
-        rect.origin.y = rect.origin.y - keyboardHeight;
-        self.frame = rect;
-    } completion:^(BOOL finished) {
-    }];
-}
 
-- (void)handleKeyboardHide:(NSNotification *) note{
-
-    
-    [UIView animateWithDuration:.5 animations:^{
-        CGRect rect = self.frame;
-        rect = CGRectMake(0, SCREENHEIGHT - 50*kHeightFactor-64, SCREENWITH, 50*kHeightFactor);
-        self.frame = rect;
-        
-    } completion:^(BOOL finished) {
-       
-    }];
-}
-- (void)keyboardHide:(UITapGestureRecognizer*)tap{
-    [_textView resignFirstResponder];
-}
+#pragma mark init
 
 - (instancetype)initWithOwner:(UIViewController <UITextViewDelegate, CHCommentarySendDelegate>*)controller{
     
@@ -57,7 +28,7 @@ CGFloat keyboardHeight;
     if (self) {
         
         [self prepareForLayout];
-        self.textView.delegate = controller;
+        self.textView.delegate = self;
         self.backgroundColor = [UIColor redColor];
         obj = controller;
         
@@ -78,6 +49,7 @@ CGFloat keyboardHeight;
     }
     return self;
 }
+
 - (void)prepareForLayout{
     
     _textView = [[UITextView alloc]initWithFrame:CGRectMake(10*kWidthFactor, 5*kHeightFactor, SCREENWITH - 105*kWidthFactor, 40*kHeightFactor)];
@@ -92,21 +64,81 @@ CGFloat keyboardHeight;
     [self addSubview:self.sendBtn];
 }
 
-- (void)pressSendBtnAction:(UIButton *)button{
-    
-     [_textView resignFirstResponder];
-    [obj pressSendBtn:_textView.text];
-    self.textView.text = @"";
-
-}
+#pragma mark textViewDelegate
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView{
   
     return YES;
 }
+
 - (void)textViewDidEndEditing:(UITextView *)textView{
     [textView resignFirstResponder];
 }
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    if ([text isEqualToString:@"\n"]) {
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
+
+#pragma mark -hanlder
+
+- (void)handleKeyboardShow:(NSNotification *) note{
+    NSDictionary *userInfo = note.userInfo;
+    
+    //     键盘的frame
+    CGRect keyboardF = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    keyboardHeight = keyboardF.size.height;
+    // 执行动画
+    [UIView animateWithDuration:.5 animations:^{
+        CGRect rect = self.frame;
+        rect.origin.y = rect.origin.y - keyboardHeight;
+        self.frame = rect;
+    } completion:^(BOOL finished) {
+    }];
+}
+
+
+- (void)handleKeyboardHide:(NSNotification *) note{
+    
+    [UIView animateWithDuration:.5 animations:^{
+        CGRect rect = self.frame;
+        rect = CGRectMake(0, SCREENHEIGHT - 50*kHeightFactor-64, SCREENWITH, 50*kHeightFactor);
+        self.frame = rect;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)pressSendBtnAction:(UIButton *)button{
+    
+    [_textView resignFirstResponder];
+    
+    if (![self.textView.text isEqualToString:@""]) {
+        NSLog(@"123231");
+        [obj pressSendBtn:_textView.text];
+    }
+    
+    self.textView.text = @"";
+    
+}
+
+
+#pragma mark Gesture
+
+- (void)keyboardHide:(UITapGestureRecognizer*)tap{
+    [_textView resignFirstResponder];
+}
+
+
+
 
 - (void)dealloc{
    
