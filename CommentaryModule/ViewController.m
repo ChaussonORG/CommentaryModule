@@ -10,6 +10,7 @@
 #import "ViewController.h"
 #import "CHCommentaryCell.h"
 #import "LoginViewController.h"
+#import <ReactiveCocoa.h>
 @interface ViewController ()
 
 @end
@@ -23,9 +24,20 @@
 }
 - (IBAction)push:(UIButton *)sender {
     CHCommentaryViewModel *viewModel = [[CHCommentaryViewModel alloc] initWithToken:@"8rc3%2BVwxuDpgiOEW%2Fe37%2FMAQjeHM6HFb6K3cNEpmVHQ1Gfvx8YI%2BpkAzov2ysr9ExKdh3MRoPFqlBoRqEqucSSDLPsTP%2FyAr1BHoRG%2BvDO5XBUtGzSvIGBjfEiim%2Fy97peUK8KsIYKi%2FJmNhAS4QtQ%3D%3D" ListUrl:@"http://p2pguide.sudaotech.com/platform/app/comment/list" sendCommentUrl:@"http://p2pguide.sudaotech.com/platform/app/comment" identifier:@"28"];
-    viewModel.isSignIn = NO;
+    viewModel.isSignIn = YES;
     LoginViewController *loginVC = [LoginViewController new];
-    CHCommentaryController *controller = [[CHCommentaryController alloc]initWithViewModel:viewModel withLoginVC:loginVC];
+    CHCommentaryController *controller = [[CHCommentaryController alloc]initWithViewModel:viewModel];
+    @weakify(controller)
+    [controller setBeforeSendMessageBlock:^{
+        if (!viewModel.isSignIn) {
+            @strongify(controller)
+            [controller presentViewController:loginVC animated:YES completion:^{
+                
+            }];
+            return ;
+        }
+   
+    }];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
