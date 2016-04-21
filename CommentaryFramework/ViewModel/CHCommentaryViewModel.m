@@ -64,21 +64,25 @@
 }
 - (void)sendWithMessage:(NSString *)message andCompletion:(void(^)(BOOL))completion
 {
-    _sendApi.content = message;
-    [_sendApi startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
-        NSString *message = [request.response.responseJSONObject objectForKey:@"message"];
-        if (message.length > 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-            [alert show];
-        }
-        if (completion) {
-            completion(YES);
-        }
-    } failureBlock:^(__kindof CHBaseRequest *request) {
-        if (completion) {
-            completion(NO);
-        }
-    }];
+    if(self.isSignIn){
+        _sendApi.content = message;
+        [_sendApi startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
+            NSString *message = [request.response.responseJSONObject objectForKey:@"message"];
+            if (message.length > 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                [alert show];
+            }
+            [self requestData];
+            if (completion) {
+                completion(YES);
+            }
+        } failureBlock:^(__kindof CHBaseRequest *request) {
+            if (completion) {
+                completion(NO);
+            }
+        }];
+    }
+
 }
 - (CHCommentaryCellVM *)assemblyViewModelWithItem:(CHCommentaryModelItems *)items
 {

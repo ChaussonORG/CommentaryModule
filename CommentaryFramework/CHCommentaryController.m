@@ -11,12 +11,13 @@
 #import <ReactiveCocoa.h>
 #import <MJRefresh/MJRefresh.h>
 
-@implementation CHCommentaryController
-- (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel withLoginVC:(UIViewController *)LoginVC{
+@implementation CHCommentaryController{
+    BefroeSendMessage _block;
+}
+- (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel{
     self = [super init];
     if (self) {
         self -> _viewModel = viewModel;
-        self.logInVC = LoginVC;
     }
     return self;
 }
@@ -91,25 +92,17 @@
 {
     self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
 }
+- (void)setBeforeSendMessageBlock:(BefroeSendMessage)beforeBlock{
+    _block = beforeBlock;
+    
+}
 - (void)pressSendBtn:(NSString *)text
 {
-    if (self.viewModel.isSignIn == NO) {
-        if (self.logInVC) {
-            UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:self.logInVC];
-            [self presentViewController:naVC animated:YES completion:^{
-                
-            }];
-        }else{
-            NSLog(@"参数登陆界面为nil");
-        }
-        
-    }else{
-        [self.viewModel sendWithMessage:text andCompletion:^(BOOL result) {
-            if (result) {
-                [self.viewModel requestData];
-            }
-        }];
+    if (_block) {
+        _block();
     }
+    [self.viewModel sendWithMessage:text andCompletion:nil];
+
 }
 
 
