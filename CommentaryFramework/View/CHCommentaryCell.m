@@ -110,7 +110,7 @@ CGFloat labelHeight;
     [_praiseBtn setImage:[UIImage imageNamed:@"likehighlight"] forState:UIControlStateSelected];
 
 
-    _vipSymbolBtn.frame = CGRectMake(vipSymbolY, 10*kHeightFactor, 15, 15);
+    _vipSymbolBtn.frame = CGRectMake(vipSymbolY, 5*kHeightFactor, 15, 15);
     [_vipSymbolBtn setImage:[UIImage imageNamed:@"crown"] forState:UIControlStateNormal];
     if (model.isVIP) {
         _vipSymbolBtn.hidden = NO;
