@@ -23,7 +23,7 @@
 @property(nonatomic,strong)UIButton *sendBtn;
 /**
  *  @brief  初始化输入框API
- *  @param  预导入视图控制器 CHCommentarySendDelegate协议代理对象
+ *  @param  controller预导入视图控制器 签订CHCommentarySendDelegate协议
  *  @return 返回实例对象
  */
 - (instancetype)initWithOwner:(UIViewController <UITextViewDelegate, CHCommentarySendDelegate>*)controller ;
