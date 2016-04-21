@@ -81,6 +81,7 @@ CGFloat labelHeight;
     _nameBtn.frame = CGRectMake(55*kWidthFactor, 5*kHeightFactor, nameSize.width, 5*kHeightFactor);
     CGFloat vipSymbolY = _nameBtn.frame.size.width + 55*kWidthFactor;
     [_nameBtn sizeToFit];
+    _nameBtn.userInteractionEnabled = NO;
     
     _headImage.frame = CGRectMake(10*kWidthFactor, 10*kHeightFactor, 40*kWidthFactor, 40*kHeightFactor);
     NSURL *url  =[NSURL URLWithString:model.imageUrl];
@@ -108,9 +109,10 @@ CGFloat labelHeight;
     [_praiseBtn sizeToFit];
     [_praiseBtn setImage:[UIImage imageNamed:@"like"] forState:UIControlStateNormal];
     [_praiseBtn setImage:[UIImage imageNamed:@"likehighlight"] forState:UIControlStateSelected];
+    _praiseBtn.userInteractionEnabled = NO;
 
 
-    _vipSymbolBtn.frame = CGRectMake(vipSymbolY, 10*kHeightFactor, 15, 15);
+    _vipSymbolBtn.frame = CGRectMake(vipSymbolY, 5*kHeightFactor, 15, 15);
     [_vipSymbolBtn setImage:[UIImage imageNamed:@"crown"] forState:UIControlStateNormal];
     if (model.isVIP) {
         _vipSymbolBtn.hidden = NO;

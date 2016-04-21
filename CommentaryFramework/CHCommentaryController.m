@@ -33,7 +33,6 @@
     [self addSubview];
     [self blindViewModel];
 
-
 }
 #pragma mark Blind
 - (void)blindViewModel
@@ -98,6 +97,10 @@
     [self.viewModel sendWithMessage:text andCompletion:nil];
 
 }
+-(void)dealloc{
+    
+}
+
 
 
 @end
