@@ -14,15 +14,25 @@
 #define kHeightFactor ([UIScreen mainScreen].bounds.size.height/667)
 
 CGFloat keyboardHeight;
+CGFloat viewY ;
 @implementation CHInputkeyboard
 
 #pragma mark init
 
 - (instancetype)initWithOwner:(UIViewController <UITextViewDelegate, CHCommentarySendDelegate>*)controller{
     
+    
     CGSize size = controller.view.frame.size;
-   
-    self = [super initWithFrame:CGRectMake(0, SCREENHEIGHT - 50-64, size.width, 50)];
+    if (controller.navigationController) {
+        
+            viewY = SCREENHEIGHT - 50 - 64;
+        
+    }
+    else{
+        viewY = SCREENHEIGHT - 50 ;
+
+    }
+    self = [super initWithFrame:CGRectMake(0, viewY, size.width, 50)];
 
     if (self) {
         
@@ -76,15 +86,12 @@ CGFloat keyboardHeight;
     _sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     _sendBtn.layer.cornerRadius = 5;
     [_sendBtn addTarget:self action:@selector(pressSendBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    _sendBtn.backgroundColor = [UIColor redColor];
     
     
     [self addSubview:self.recordBtn];
     [self addSubview:self.textView];
     [self addSubview:self.sendBtn];
 
-    
-   
 }
 
 #pragma mark textViewDelegate
@@ -109,7 +116,7 @@ CGFloat keyboardHeight;
     CGRect keyboardRect = [aValue CGRectValue];
     int height = keyboardRect.size.height;
     keyboardHeight = height;
-    CGRect rect = CGRectMake(0, SCREENHEIGHT - 50-64, [UIScreen mainScreen].bounds.size.width, 50);
+    CGRect rect = CGRectMake(0, viewY, [UIScreen mainScreen].bounds.size.width, 50);
     rect.origin.y = rect.origin.y - keyboardHeight;
     self.frame = rect;
     
@@ -120,7 +127,7 @@ CGFloat keyboardHeight;
     
     [UIView animateWithDuration:.001 animations:^{
         CGRect rect = self.frame;
-        rect = CGRectMake(0, SCREENHEIGHT - 50 - 64, SCREENWITH, 50);
+        rect = CGRectMake(0, viewY, SCREENWITH, 50);
         self.frame = rect;
         
     } completion:^(BOOL finished) {

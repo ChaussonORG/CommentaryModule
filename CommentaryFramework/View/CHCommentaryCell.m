@@ -99,6 +99,7 @@ CGFloat labelHeight;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
     _contentLabel.frame = CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, labelHeight);
    [_contentLabel sizeToFit];
+    _contentLabel.backgroundColor = [UIColor redColor];
 
     
     model.praiseNum =100;

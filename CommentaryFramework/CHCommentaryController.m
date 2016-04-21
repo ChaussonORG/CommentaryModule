@@ -23,7 +23,8 @@
 }
 - (void)viewDidLoad
 {
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+
     self.navigationController.navigationBar.translucent = NO;
     //列表ViewModel
     NSAssert(self.viewModel != nil, @"%@ VM is nil ",[self class]);

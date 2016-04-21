@@ -38,7 +38,13 @@
         }
    
     }];
+    
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController pushViewController:controller animated:YES];
+
+//    [self presentViewController:controller animated:YES completion:^{
+//        
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {
