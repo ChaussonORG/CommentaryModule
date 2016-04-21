@@ -22,7 +22,7 @@
 
 @property(nonatomic,strong)UIButton *sendBtn;
 
-@property(nonatomic,strong)UIButton *addBtn;
+//@property(nonatomic,strong)UIButton *addBtn;
 
 @property(nonatomic,strong)UIButton *recordBtn;
 /**

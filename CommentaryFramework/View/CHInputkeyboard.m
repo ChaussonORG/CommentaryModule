@@ -13,7 +13,6 @@
 #define kWidthFactor ([UIScreen mainScreen].bounds.size.width/375)
 #define kHeightFactor ([UIScreen mainScreen].bounds.size.height/667)
 
-
 CGFloat keyboardHeight;
 @implementation CHInputkeyboard
 
@@ -23,23 +22,17 @@ CGFloat keyboardHeight;
     
     CGSize size = controller.view.frame.size;
    
-    self = [super initWithFrame:CGRectMake(0, SCREENHEIGHT - 50*kHeightFactor-64, size.width, 50*kHeightFactor)];
-    NSLog(@"%f",SCREENHEIGHT - 50*kHeightFactor);
+    self = [super initWithFrame:CGRectMake(0, SCREENHEIGHT - 50-64, size.width, 50)];
+
     if (self) {
         
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = [UIColor colorWithRed:230/256.0 green:230/256.0 blue:230/256.0 alpha:1];
         
         [self prepareForLayout];
         
         self.textView.delegate = self;
 
         obj = controller;
-    
-
-        
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
-        [controller.view addGestureRecognizer:tapGestureRecognizer];
-        
         
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -51,6 +44,14 @@ CGFloat keyboardHeight;
                                                      name:UIKeyboardWillHideNotification
                                                    object:nil];
         
+//        UIView *tapView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREENWITH, SCREENHEIGHT - 64 -keyboardHeight)];
+//        [controller.view addSubview:tapView];
+//        tapView.hidden = NO;
+//        tapView.backgroundColor = [UIColor redColor];
+        
+        
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];
+        [controller.view addGestureRecognizer:tapGestureRecognizer];
     }
     
     return self;
@@ -59,53 +60,35 @@ CGFloat keyboardHeight;
 
 - (void)prepareForLayout{
     
-    _recordBtn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    _recordBtn.frame = CGRectMake(10*kWidthFactor, 5*kHeightFactor, 40*kWidthFactor, 40*kHeightFactor);
-     _recordBtn.tintColor = [UIColor lightGrayColor];
-    _recordBtn.layer.cornerRadius = 20;
 
     
-    _textView = [[UITextView alloc]initWithFrame:CGRectMake(55*kWidthFactor, 5*kHeightFactor, SCREENWITH - 130*kWidthFactor, 40*kHeightFactor)];
-    _textView.backgroundColor = [UIColor lightGrayColor];
+    _textView = [[UITextView alloc]initWithFrame:CGRectMake(10, 10, SCREENWITH - 75, 30)];
     _textView.layer.borderColor = [UIColor whiteColor].CGColor;
     _textView.layer.cornerRadius = 5;
     _textView.layer.borderWidth = 1;
-    _textView.font = [UIFont systemFontOfSize:20];
+    _textView.font = [UIFont systemFontOfSize:16*kWidthFactor];
     
     
     _sendBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    _sendBtn.frame = CGRectMake(SCREENWITH - 70*kWidthFactor, 5*kHeightFactor, 60*kWidthFactor, 40*kHeightFactor);
+    _sendBtn.frame = CGRectMake(SCREENWITH - 60, 10, 50, 30);
     [_sendBtn setTitle:@"发送" forState:UIControlStateNormal];
-    _sendBtn.tintColor = [UIColor whiteColor];
-    _sendBtn.titleLabel.font = [UIFont systemFontOfSize:20];
+    _sendBtn.tintColor = [UIColor grayColor];
+    _sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     _sendBtn.layer.cornerRadius = 5;
-    _sendBtn.hidden = YES;
     [_sendBtn addTarget:self action:@selector(pressSendBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    _sendBtn.backgroundColor = [UIColor greenColor];
+    _sendBtn.backgroundColor = [UIColor redColor];
     
-    _addBtn = [UIButton buttonWithType:UIButtonTypeContactAdd];
-    _addBtn.frame = CGRectMake(SCREENWITH - 70*kWidthFactor, 5*kHeightFactor, 60*kWidthFactor, 40*kHeightFactor);
-    _addBtn.tintColor = [UIColor lightGrayColor];
     
     [self addSubview:self.recordBtn];
     [self addSubview:self.textView];
     [self addSubview:self.sendBtn];
-    [self addSubview:self.addBtn];
+
     
    
 }
 
 #pragma mark textViewDelegate
-- (void)textViewDidChange:(UITextView *)textView{
-    if (![textView.text isEqualToString:@""]) {
-        _sendBtn.hidden = NO;
-        _addBtn.hidden = YES;
-    }
-    else{
-        _sendBtn.hidden =YES;
-        _addBtn.hidden = NO;
-    }
-}
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
 
     if ([text isEqualToString:@"\n"]) {
@@ -120,29 +103,24 @@ CGFloat keyboardHeight;
 #pragma mark -hanlder
 
 - (void)handleKeyboardShow:(NSNotification *) note{
-    NSDictionary *userInfo = note.userInfo;
-    
     //     键盘的frame
-    CGRect keyboardF = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    keyboardHeight = keyboardF.size.height;
-    // 执行动画
-    [UIView animateWithDuration:.5 animations:^{
-        CGRect rect = self.frame;
-        rect.origin.y = rect.origin.y - keyboardHeight;
-        self.frame = rect;
-    } completion:^(BOOL finished) {
-        
-    }];
+    NSDictionary *userInfo = [note userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    keyboardHeight = height;
+    CGRect rect = CGRectMake(0, SCREENHEIGHT - 50-64, [UIScreen mainScreen].bounds.size.width, 50);
+    rect.origin.y = rect.origin.y - keyboardHeight;
+    self.frame = rect;
     
 }
 
 
 - (void)handleKeyboardHide:(NSNotification *) note{
     
-    [UIView animateWithDuration:.5 animations:^{
+    [UIView animateWithDuration:.001 animations:^{
         CGRect rect = self.frame;
-        rect = CGRectMake(0, SCREENHEIGHT - 50*kHeightFactor-64, SCREENWITH, 50*kHeightFactor);
+        rect = CGRectMake(0, SCREENHEIGHT - 50 - 64, SCREENWITH, 50);
         self.frame = rect;
         
     } completion:^(BOOL finished) {

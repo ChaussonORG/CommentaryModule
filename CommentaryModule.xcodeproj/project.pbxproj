@@ -25,6 +25,7 @@
 		6840734F1CC6287100C56CD4 /* CHCommentaryApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 6840734E1CC6287100C56CD4 /* CHCommentaryApi.m */; };
 		684073531CC628CF00C56CD4 /* CHCommentaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 684073521CC628CF00C56CD4 /* CHCommentaryModel.m */; };
 		684C47591CC75A8F00457D46 /* CHSendCommentApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 684C47581CC75A8F00457D46 /* CHSendCommentApi.m */; };
+		68C64B181CC8A012004C8077 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C64B171CC8A012004C8077 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,8 @@
 		684073521CC628CF00C56CD4 /* CHCommentaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommentaryModel.m; sourceTree = "<group>"; };
 		684C47571CC75A8F00457D46 /* CHSendCommentApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSendCommentApi.h; sourceTree = "<group>"; };
 		684C47581CC75A8F00457D46 /* CHSendCommentApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSendCommentApi.m; sourceTree = "<group>"; };
+		68C64B161CC8A012004C8077 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		68C64B171CC8A012004C8077 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		8205569DF3C4A1ED444405A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9D080615AA3087DBA614D3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +143,8 @@
 				06A5FE801CC5F90000CCCC10 /* AppDelegate.m */,
 				06A5FE821CC5F90000CCCC10 /* ViewController.h */,
 				06A5FE831CC5F90000CCCC10 /* ViewController.m */,
+				68C64B161CC8A012004C8077 /* LoginViewController.h */,
+				68C64B171CC8A012004C8077 /* LoginViewController.m */,
 				06A5FE851CC5F90000CCCC10 /* Main.storyboard */,
 				06A5FE881CC5F90000CCCC10 /* Assets.xcassets */,
 				06A5FE8A1CC5F90100CCCC10 /* LaunchScreen.storyboard */,
@@ -432,6 +437,7 @@
 			files = (
 				06A5FEB51CC5FB1700CCCC10 /* CHCommentaryController.m in Sources */,
 				684073531CC628CF00C56CD4 /* CHCommentaryModel.m in Sources */,
+				68C64B181CC8A012004C8077 /* LoginViewController.m in Sources */,
 				6840734F1CC6287100C56CD4 /* CHCommentaryApi.m in Sources */,
 				06A5FE841CC5F90000CCCC10 /* ViewController.m in Sources */,
 				06A5FEBF1CC5FCC700CCCC10 /* CHCommentaryCell.m in Sources */,
