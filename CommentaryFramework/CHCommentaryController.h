@@ -11,7 +11,7 @@
 #import "CHCommentaryTableView.h"
 #import "CHCommentaryCell.h"
 #import "CHInputkeyboard.h"
-@interface CHCommentaryController : UIViewController<UITableViewDelegate, UITableViewDataSource, CHCommentarySendDelegate, UITextViewDelegate>
+@interface CHCommentaryController : UIViewController<UITableViewDelegate, UITableViewDataSource, CHCommentarySendDelegate>
 typedef void(^BefroeSendMessage)(); // 注释
 + (instancetype )new  __unavailable;
 - (instancetype )init __unavailable;

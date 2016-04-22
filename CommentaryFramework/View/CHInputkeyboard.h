@@ -30,6 +30,6 @@
  *  @param  controller预导入视图控制器 签订CHCommentarySendDelegate协议
  *  @return 返回实例对象
  */
-- (instancetype)initWithOwner:(UIViewController <UITextViewDelegate, CHCommentarySendDelegate>*)controller ;
+- (instancetype)initWithOwner:(UIViewController <CHCommentarySendDelegate>*)controller ;
 
 @end

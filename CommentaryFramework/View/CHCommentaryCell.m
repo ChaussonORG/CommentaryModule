@@ -28,6 +28,7 @@ CGFloat labelHeight;
     
     if (self) {
         
+        
         [self prepareLayout];
         
     }
@@ -133,13 +134,16 @@ CGFloat labelHeight;
     UILabel *label = [[UILabel alloc]initWithFrame: CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, size.height)];
     label.text = viewModel.content;
     label.numberOfLines = 0;
+    label.font = [UIFont systemFontOfSize:COMMENTARYCONTENTFONTSIZE*kWidthFactor];
     label.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
     [label sizeToFit];
     
     labelHeight = label.frame.size.height;
     
-    size = CGSizeMake(SCREENWITH, labelHeight + 60 *kHeightFactor);
-
+    NSLog(@"labelh = %f",labelHeight);
+    
+    size = CGSizeMake(SCREENWITH, labelHeight + 60*kHeightFactor);
+    
     return  size.height;
 }
 + (NSString *)commentaryIdentifier{

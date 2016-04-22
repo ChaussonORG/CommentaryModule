@@ -19,7 +19,7 @@ CGFloat viewY ;
 
 #pragma mark init
 
-- (instancetype)initWithOwner:(UIViewController <UITextViewDelegate, CHCommentarySendDelegate>*)controller{
+- (instancetype)initWithOwner:(UIViewController <CHCommentarySendDelegate>*)controller{
     
     
     CGSize size = controller.view.frame.size;
