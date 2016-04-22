@@ -37,13 +37,11 @@ CGFloat viewY ;
     if (self) {
         
         self.backgroundColor = [UIColor colorWithRed:230/256.0 green:230/256.0 blue:230/256.0 alpha:1];
-        
         [self prepareForLayout];
         
         self.textView.delegate = self;
 
-        obj = controller;
-        
+        self.obj = controller;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleKeyboardShow:)
@@ -139,7 +137,7 @@ CGFloat viewY ;
     
     if (![self.textView.text isEqualToString:@""]) {
         
-        [obj pressSendBtn:_textView.text];
+        [self.obj pressSendBtn:_textView.text];
         [_textView resignFirstResponder];
         self.textView.text = @"";
         

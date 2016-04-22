@@ -34,7 +34,6 @@
             [controller presentViewController:loginVC animated:YES completion:^{
                 
             }];
-            return ;
         }
    
     }];

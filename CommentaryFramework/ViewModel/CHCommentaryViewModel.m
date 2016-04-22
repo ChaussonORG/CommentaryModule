@@ -32,11 +32,9 @@
 - (void)requestData
 {
     _api.index = 0;
-    @weakify(self)
     [_api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
         CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray array];
-        @strongify(self)
         for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
@@ -49,11 +47,10 @@
 - (void)requestFooterData
 {
     _api.index = self.cellViewModel.count;
-    @weakify(self)
+
     [_api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
         CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray arrayWithArray:[self.cellViewModel copy]];
-        @strongify(self)
         for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
