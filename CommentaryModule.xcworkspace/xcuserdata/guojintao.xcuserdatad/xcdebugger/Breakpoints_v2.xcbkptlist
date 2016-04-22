@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CommentaryFramework/View/CHInputkeyboard.m"
-            timestampString = "482924681.466674"
+            timestampString = "482981649.837089"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "-dealloc"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "-pressSendBtnAction:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

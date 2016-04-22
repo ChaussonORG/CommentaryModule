@@ -27,13 +27,11 @@ CGFloat keyboardHeight;
     if (self) {
         
         self.backgroundColor = [UIColor colorWithRed:230/256.0 green:230/256.0 blue:230/256.0 alpha:1];
-        
         [self prepareForLayout];
         
         self.textView.delegate = self;
 
         self.obj = controller;
-        
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(handleKeyboardShow:)
@@ -76,7 +74,6 @@ CGFloat keyboardHeight;
     _sendBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     _sendBtn.layer.cornerRadius = 5;
     [_sendBtn addTarget:self action:@selector(pressSendBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-
     
     
     [self addSubview:self.recordBtn];
