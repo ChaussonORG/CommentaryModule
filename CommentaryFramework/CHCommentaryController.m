@@ -11,7 +11,9 @@
 #import <ReactiveCocoa.h>
 #import <MJRefresh/MJRefresh.h>
 
-@implementation CHCommentaryController
+@implementation CHCommentaryController{
+    BefroeSendMessage _block;
+}
 - (instancetype )initWithViewModel:(CHCommentaryViewModel *)viewModel{
     self = [super init];
     if (self) {
@@ -21,16 +23,16 @@
 }
 - (void)viewDidLoad
 {
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+
     self.navigationController.navigationBar.translucent = NO;
     //列表ViewModel
     NSAssert(self.viewModel != nil, @"%@ VM is nil ",[self class]);
     [self.viewModel requestData];
     [self setupTableView];
-    [self creatSendView];
+     self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
     [self addSubview];
     [self blindViewModel];
-
 
 }
 #pragma mark Blind
@@ -68,8 +70,6 @@
 #pragma mark TableViewDelegate
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-
     CHCommentaryCell *cell = [tableView dequeueReusableCellWithIdentifier:[CHCommentaryCell commentaryIdentifier]];
     if (cell == nil) {
         cell = [[CHCommentaryCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:[CHCommentaryCell commentaryIdentifier]];
@@ -86,22 +86,23 @@
 
     return [CHCommentaryCell calculateHengthViewModel:[self.viewModel.cellViewModel objectAtIndex:indexPath.row]];
 }
-//创建发送框和按钮
-- (void)creatSendView
-{
-    self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
-
-
+- (void)setBeforeSendMessageBlock:(BefroeSendMessage)beforeBlock{
+    _block = beforeBlock;
+    
 }
 - (void)pressSendBtn:(NSString *)text
 {
-    [self.viewModel sendWithMessage:text andCompletion:^(BOOL result) {
-        if (result) {
-            [self.viewModel requestData];
-        }
-    }];
-   
+    if (_block) {
+        _block();
+    }
+    [self.viewModel sendWithMessage:text andCompletion:nil];
+
 }
+-(void)dealloc{
+    
+}
+
+
 
 
 @end

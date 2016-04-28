@@ -28,6 +28,7 @@ CGFloat labelHeight;
     
     if (self) {
         
+        
         [self prepareLayout];
         
     }
@@ -81,6 +82,7 @@ CGFloat labelHeight;
     _nameBtn.frame = CGRectMake(55*kWidthFactor, 5*kHeightFactor, nameSize.width, 5*kHeightFactor);
     CGFloat vipSymbolY = _nameBtn.frame.size.width + 55*kWidthFactor;
     [_nameBtn sizeToFit];
+    _nameBtn.userInteractionEnabled = NO;
     
     _headImage.frame = CGRectMake(10*kWidthFactor, 10*kHeightFactor, 40*kWidthFactor, 40*kHeightFactor);
     NSURL *url  =[NSURL URLWithString:model.imageUrl];
@@ -98,6 +100,7 @@ CGFloat labelHeight;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
     _contentLabel.frame = CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, labelHeight);
    [_contentLabel sizeToFit];
+    _contentLabel.backgroundColor = [UIColor redColor];
 
     
     model.praiseNum =100;
@@ -108,9 +111,10 @@ CGFloat labelHeight;
     [_praiseBtn sizeToFit];
     [_praiseBtn setImage:[UIImage imageNamed:@"like"] forState:UIControlStateNormal];
     [_praiseBtn setImage:[UIImage imageNamed:@"likehighlight"] forState:UIControlStateSelected];
+    _praiseBtn.userInteractionEnabled = NO;
 
 
-    _vipSymbolBtn.frame = CGRectMake(vipSymbolY, 10*kHeightFactor, 15, 15);
+    _vipSymbolBtn.frame = CGRectMake(vipSymbolY, 5*kHeightFactor, 15, 15);
     [_vipSymbolBtn setImage:[UIImage imageNamed:@"crown"] forState:UIControlStateNormal];
     if (model.isVIP) {
         _vipSymbolBtn.hidden = NO;
@@ -130,13 +134,16 @@ CGFloat labelHeight;
     UILabel *label = [[UILabel alloc]initWithFrame: CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, size.height)];
     label.text = viewModel.content;
     label.numberOfLines = 0;
+    label.font = [UIFont systemFontOfSize:COMMENTARYCONTENTFONTSIZE*kWidthFactor];
     label.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
     [label sizeToFit];
     
     labelHeight = label.frame.size.height;
     
-    size = CGSizeMake(SCREENWITH, labelHeight + 60 *kHeightFactor);
-
+    NSLog(@"labelh = %f",labelHeight);
+    
+    size = CGSizeMake(SCREENWITH, labelHeight + 60*kHeightFactor);
+    
     return  size.height;
 }
 + (NSString *)commentaryIdentifier{

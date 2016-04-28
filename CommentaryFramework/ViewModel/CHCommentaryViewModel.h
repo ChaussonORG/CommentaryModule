@@ -10,8 +10,8 @@
 #import "CHCommentaryCellVM.h"
 @interface CHCommentaryViewModel : NSObject
 @property (nonatomic, strong, readonly) NSMutableArray <CHCommentaryCellVM *> *cellViewModel;
-@property (nonatomic, assign, readonly) BOOL isSignIn;//如果YES表示已经登录! 如果NO表示没有登录!
-@property (nonatomic, assign, readonly) BOOL isFinish;//如果YES表示已经发送成功! 如果NO表示发送失败!
+@property (nonatomic, assign) BOOL isSignIn;//如果YES表示已经登录! 如果NO表示没有登录!
+@property (nonatomic, assign) BOOL isFinish;//如果YES表示已经发送成功! 如果NO表示发送失败!
 - (void)requestData;
 - (void)requestFooterData;
 - (void)sendWithMessage:(NSString *)message andCompletion:(void(^)(BOOL))completion;

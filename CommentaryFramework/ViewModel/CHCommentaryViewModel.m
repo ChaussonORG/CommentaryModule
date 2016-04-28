@@ -13,7 +13,6 @@
 #import "CHSendCommentApi.h"
 @interface CHCommentaryViewModel()
 @property (nonatomic, strong) NSMutableArray <CHCommentaryCellVM *> *cellViewModel;
-@property (nonatomic, assign) BOOL isFinish;
 @end
 @implementation CHCommentaryViewModel{
     CHCommentaryApi *_api;
@@ -33,11 +32,9 @@
 - (void)requestData
 {
     _api.index = 0;
-    @weakify(self)
     [_api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
         CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray array];
-        @strongify(self)
         for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
@@ -50,11 +47,10 @@
 - (void)requestFooterData
 {
     _api.index = self.cellViewModel.count;
-    @weakify(self)
+
     [_api startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
         CHCommentaryApi *comment = (CHCommentaryApi *)request;
         NSMutableArray <CHCommentaryCellVM *>*cellViewModel = [NSMutableArray arrayWithArray:[self.cellViewModel copy]];
-        @strongify(self)
         for (CHCommentaryModelItems *items in [comment getItems]) {
             [cellViewModel addObject:[self assemblyViewModelWithItem:items]];
         }
@@ -65,21 +61,25 @@
 }
 - (void)sendWithMessage:(NSString *)message andCompletion:(void(^)(BOOL))completion
 {
-    _sendApi.content = message;
-    [_sendApi startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
-        NSString *message = [request.response.responseJSONObject objectForKey:@"message"];
-        if (message.length > 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-            [alert show];
-        }
-        if (completion) {
-            completion(YES);
-        }
-    } failureBlock:^(__kindof CHBaseRequest *request) {
-        if (completion) {
-            completion(NO);
-        }
-    }];
+    if(self.isSignIn){
+        _sendApi.content = message;
+        [_sendApi startWithSuccessBlock:^(__kindof CHBaseRequest *request) {
+            NSString *message = [request.response.responseJSONObject objectForKey:@"message"];
+            if (message.length > 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                [alert show];
+            }
+            [self requestData];
+            if (completion) {
+                completion(YES);
+            }
+        } failureBlock:^(__kindof CHBaseRequest *request) {
+            if (completion) {
+                completion(NO);
+            }
+        }];
+    }
+
 }
 - (CHCommentaryCellVM *)assemblyViewModelWithItem:(CHCommentaryModelItems *)items
 {

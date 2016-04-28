@@ -10,7 +10,21 @@
 
 @implementation CHCommentaryTableView
 - (instancetype)initWithOwner:(UIViewController <UITableViewDelegate,UITableViewDataSource>*)controller{
-    CGRect rect = controller.view.frame;
+    CGFloat viewY;
+    CGFloat viewHeight;
+    if (controller.navigationController.navigationBar && controller.navigationController.navigationBar.translucent == NO) {
+        
+        viewY = 0;
+        viewHeight = controller.view.frame.size.height - 64;
+    }
+    else{
+        viewY = 20;
+        viewHeight = controller.view.frame.size.height - 20;
+
+    }
+    
+   CGRect rect = CGRectMake(0, viewY, controller.view.frame.size.width, viewHeight);
+//    CGRect rect = controller.view.frame;
     self.delegate = controller;
     self.dataSource = controller;
     self = [super initWithFrame:rect style:UITableViewStylePlain];
