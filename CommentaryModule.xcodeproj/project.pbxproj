@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		06A5FE7E1CC5F90000CCCC10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A5FE7D1CC5F90000CCCC10 /* main.m */; };
 		06A5FE811CC5F90000CCCC10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A5FE801CC5F90000CCCC10 /* AppDelegate.m */; };
-		06A5FE841CC5F90000CCCC10 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A5FE831CC5F90000CCCC10 /* ViewController.m */; };
+		06A5FE841CC5F90000CCCC10 /* CHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A5FE831CC5F90000CCCC10 /* CHViewController.m */; };
 		06A5FE871CC5F90000CCCC10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A5FE851CC5F90000CCCC10 /* Main.storyboard */; };
 		06A5FE891CC5F90000CCCC10 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06A5FE881CC5F90000CCCC10 /* Assets.xcassets */; };
 		06A5FE8C1CC5F90100CCCC10 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06A5FE8A1CC5F90100CCCC10 /* LaunchScreen.storyboard */; };
@@ -25,7 +25,7 @@
 		6840734F1CC6287100C56CD4 /* CHCommentaryApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 6840734E1CC6287100C56CD4 /* CHCommentaryApi.m */; };
 		684073531CC628CF00C56CD4 /* CHCommentaryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 684073521CC628CF00C56CD4 /* CHCommentaryModel.m */; };
 		684C47591CC75A8F00457D46 /* CHSendCommentApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 684C47581CC75A8F00457D46 /* CHSendCommentApi.m */; };
-		68C64B181CC8A012004C8077 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C64B171CC8A012004C8077 /* LoginViewController.m */; };
+		68C64B181CC8A012004C8077 /* CHLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C64B171CC8A012004C8077 /* CHLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,8 +50,8 @@
 		06A5FE7D1CC5F90000CCCC10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		06A5FE7F1CC5F90000CCCC10 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		06A5FE801CC5F90000CCCC10 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		06A5FE821CC5F90000CCCC10 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		06A5FE831CC5F90000CCCC10 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		06A5FE821CC5F90000CCCC10 /* CHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHViewController.h; sourceTree = "<group>"; };
+		06A5FE831CC5F90000CCCC10 /* CHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CHViewController.m; sourceTree = "<group>"; };
 		06A5FE861CC5F90000CCCC10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		06A5FE881CC5F90000CCCC10 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06A5FE8B1CC5F90100CCCC10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,8 +81,8 @@
 		684073521CC628CF00C56CD4 /* CHCommentaryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCommentaryModel.m; sourceTree = "<group>"; };
 		684C47571CC75A8F00457D46 /* CHSendCommentApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHSendCommentApi.h; sourceTree = "<group>"; };
 		684C47581CC75A8F00457D46 /* CHSendCommentApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHSendCommentApi.m; sourceTree = "<group>"; };
-		68C64B161CC8A012004C8077 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		68C64B171CC8A012004C8077 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		68C64B161CC8A012004C8077 /* CHLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLoginViewController.h; sourceTree = "<group>"; };
+		68C64B171CC8A012004C8077 /* CHLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLoginViewController.m; sourceTree = "<group>"; };
 		8205569DF3C4A1ED444405A3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE9D080615AA3087DBA614D3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -141,10 +141,10 @@
 			children = (
 				06A5FE7F1CC5F90000CCCC10 /* AppDelegate.h */,
 				06A5FE801CC5F90000CCCC10 /* AppDelegate.m */,
-				06A5FE821CC5F90000CCCC10 /* ViewController.h */,
-				06A5FE831CC5F90000CCCC10 /* ViewController.m */,
-				68C64B161CC8A012004C8077 /* LoginViewController.h */,
-				68C64B171CC8A012004C8077 /* LoginViewController.m */,
+				06A5FE821CC5F90000CCCC10 /* CHViewController.h */,
+				06A5FE831CC5F90000CCCC10 /* CHViewController.m */,
+				68C64B161CC8A012004C8077 /* CHLoginViewController.h */,
+				68C64B171CC8A012004C8077 /* CHLoginViewController.m */,
 				06A5FE851CC5F90000CCCC10 /* Main.storyboard */,
 				06A5FE881CC5F90000CCCC10 /* Assets.xcassets */,
 				06A5FE8A1CC5F90100CCCC10 /* LaunchScreen.storyboard */,
@@ -437,9 +437,9 @@
 			files = (
 				06A5FEB51CC5FB1700CCCC10 /* CHCommentaryController.m in Sources */,
 				684073531CC628CF00C56CD4 /* CHCommentaryModel.m in Sources */,
-				68C64B181CC8A012004C8077 /* LoginViewController.m in Sources */,
+				68C64B181CC8A012004C8077 /* CHLoginViewController.m in Sources */,
 				6840734F1CC6287100C56CD4 /* CHCommentaryApi.m in Sources */,
-				06A5FE841CC5F90000CCCC10 /* ViewController.m in Sources */,
+				06A5FE841CC5F90000CCCC10 /* CHViewController.m in Sources */,
 				06A5FEBF1CC5FCC700CCCC10 /* CHCommentaryCell.m in Sources */,
 				06A5FE811CC5F90000CCCC10 /* AppDelegate.m in Sources */,
 				06A5FEC31CC5FD4B00CCCC10 /* CHCommentaryCellVM.m in Sources */,

@@ -29,7 +29,7 @@ CGFloat viewY ;
         
     }
     else{
-        viewY = SCREENHEIGHT - 50 ;
+        viewY = SCREENHEIGHT - 50;
 
     }
     self = [super initWithFrame:CGRectMake(0, viewY, size.width, 50)];
@@ -51,11 +51,6 @@ CGFloat viewY ;
                                                  selector:@selector(handleKeyboardHide:)
                                                      name:UIKeyboardWillHideNotification
                                                    object:nil];
-        
-//        UIView *tapView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, SCREENWITH, SCREENHEIGHT - 64 -keyboardHeight)];
-//        [controller.view addSubview:tapView];
-//        tapView.hidden = NO;
-//        tapView.backgroundColor = [UIColor redColor];
         
         
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(keyboardHide:)];

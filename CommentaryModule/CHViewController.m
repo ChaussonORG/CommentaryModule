@@ -7,25 +7,35 @@
 //
 #import "CHCommentaryController.h"
 #import "CHCommentaryViewModel.h"
-#import "ViewController.h"
+#import "CHViewController.h"
 #import "CHCommentaryCell.h"
-#import "LoginViewController.h"
+#import "CHLoginViewController.h"
 #import <ReactiveCocoa.h>
-@interface ViewController ()
+
+#define TOKEN @"8rc3%2BVwxuDpgiOEW%2Fe37%2FMAQjeHM6HFb6K3cNEpmVHQ1Gfvx8YI%2BpkAzov2ysr9ExKdh3MRoPFqlBoRqEqucSSDLPsTP%2FyAr1BHoRG%2BvDO5XBUtGzSvIGBjfEiim%2Fy97peUK8KsIYKi%2FJmNhAS4QtQ%3D%3D"
+
+#define LISTURL @"http://p2pguide.sudaotech.com/platform/app/comment/list"
+
+#define COMMENTURL @"http://p2pguide.sudaotech.com/platform/app/comment"
+
+#define IDENTIFIER @"28"
+@interface CHViewController ()<CHCommentarySendDelegate>
 
 @end
 
-@implementation ViewController
+@implementation CHViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    
     
     // Do any additional setup after loading the view, typically from a nib.
 }
 - (IBAction)push:(UIButton *)sender {
-    CHCommentaryViewModel *viewModel = [[CHCommentaryViewModel alloc] initWithToken:@"8rc3%2BVwxuDpgiOEW%2Fe37%2FMAQjeHM6HFb6K3cNEpmVHQ1Gfvx8YI%2BpkAzov2ysr9ExKdh3MRoPFqlBoRqEqucSSDLPsTP%2FyAr1BHoRG%2BvDO5XBUtGzSvIGBjfEiim%2Fy97peUK8KsIYKi%2FJmNhAS4QtQ%3D%3D" ListUrl:@"http://p2pguide.sudaotech.com/platform/app/comment/list" sendCommentUrl:@"http://p2pguide.sudaotech.com/platform/app/comment" identifier:@"28"];
+    CHCommentaryViewModel *viewModel = [[CHCommentaryViewModel alloc] initWithToken: TOKEN ListUrl: LISTURL sendCommentUrl: COMMENTURL identifier: IDENTIFIER];
     viewModel.isSignIn = YES;
-    LoginViewController *loginVC = [LoginViewController new];
+    CHLoginViewController *loginVC = [CHLoginViewController new];
     CHCommentaryController *controller = [[CHCommentaryController alloc]initWithViewModel:viewModel];
     @weakify(controller)
     [controller setBeforeSendMessageBlock:^{
@@ -38,12 +48,10 @@
    
     }];
     
-//    self.navigationController.navigationBar.translucent = YES;
-//    [self.navigationController pushViewController:controller animated:YES];
 
-    [self presentViewController:controller animated:YES completion:^{
-        
-    }];
+    [self.navigationController pushViewController:controller animated:YES];
+
+
 }
 
 - (void)didReceiveMemoryWarning {
