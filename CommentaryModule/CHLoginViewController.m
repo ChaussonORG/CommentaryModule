@@ -6,13 +6,13 @@
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "CHLoginViewController.h"
 
-@interface LoginViewController ()
+@interface CHLoginViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation CHLoginViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

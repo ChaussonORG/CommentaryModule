@@ -29,8 +29,9 @@
     //列表ViewModel
     NSAssert(self.viewModel != nil, @"%@ VM is nil ",[self class]);
     [self.viewModel requestData];
+    self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
     [self setupTableView];
-     self.keyBofardView = [[CHInputkeyboard alloc] initWithOwner:self];
+
     [self addSubview];
     [self blindViewModel];
 
@@ -51,9 +52,9 @@
 - (void)addSubview{
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.keyBofardView];
+
 }
 - (void)setupTableView{
-    //self.tableView = [[CHCommentaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:(UITableViewStylePlain)];
     self.tableView = [[CHCommentaryTableView alloc] initWithOwner:self];
     @weakify(self);
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{

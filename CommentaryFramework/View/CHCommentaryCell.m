@@ -86,6 +86,7 @@ CGFloat labelHeight;
     
     _headImage.frame = CGRectMake(10*kWidthFactor, 10*kHeightFactor, 40*kWidthFactor, 40*kHeightFactor);
     NSURL *url  =[NSURL URLWithString:model.imageUrl];
+    
     [_headImage  sd_setImageWithURL:url];
     [_headImage.layer setCornerRadius:20*kWidthFactor];
     [_headImage.layer setMasksToBounds:YES];
@@ -100,7 +101,6 @@ CGFloat labelHeight;
     _contentLabel.lineBreakMode = NSLineBreakByWordWrapping|NSLineBreakByTruncatingTail;
     _contentLabel.frame = CGRectMake(55*kWidthFactor, 50*kHeightFactor, SCREENWITH - 80*kWidthFactor, labelHeight);
    [_contentLabel sizeToFit];
-    _contentLabel.backgroundColor = [UIColor redColor];
 
     
     model.praiseNum =100;
@@ -139,8 +139,6 @@ CGFloat labelHeight;
     [label sizeToFit];
     
     labelHeight = label.frame.size.height;
-    
-    NSLog(@"labelh = %f",labelHeight);
     
     size = CGSizeMake(SCREENWITH, labelHeight + 60*kHeightFactor);
     

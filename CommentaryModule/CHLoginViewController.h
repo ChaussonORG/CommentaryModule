@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  LoginViewController.h
 //  CommentaryModule
 //
-//  Created by Chausson on 16/4/19.
+//  Created by 郭金涛 on 16/4/21.
 //  Copyright © 2016年 Chausson. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CHLoginViewController : UIViewController
 
 @end
-
